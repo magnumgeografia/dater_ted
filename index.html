@@ -329,13 +329,13 @@
         <div class="row">
             <div class="col form-group">
                 <label for="estados">Estados Atendidos pelo Projeto</label>
-                <span class="help-text">Segure CTRL (Mac: Cmd) para múltiplos.</span>
+                <span class="help-text">Selecione o estado para abrir seus municípios.</span>
                 <select id="estados" name="estados" multiple onchange="carregarMunicipios()"></select>
             </div>
 
             <div class="col form-group">
                 <label for="municipios">Municípios Atendidos pelo Projeto</label>
-                <span class="help-text">Selecione na lista e clique em Incluir.</span>
+                <span class="help-text">Selecione na lista e clique em Incluir. Segure CTRL (Mac: Cmd) para múltiplos.</span>
                 <div style="display: flex; gap: 10px; align-items: flex-start;">
                     <select id="municipios" multiple style="flex: 1;"></select>
                     <button type="button" class="btn-incluir" onclick="incluirMunicipios()">Incluir</button>
@@ -358,7 +358,7 @@
         </div>
 
         <div class="form-group">
-            <label>Temática Principal</label>
+            <label>Temáticas Principais</label>
             <div class="checkbox-group">
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="Agroecologia"> Agroecologia</label>
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="ATER"> Assistência Técnica e Extensão Rural (ATER)</label>
