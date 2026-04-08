@@ -128,7 +128,6 @@
             align-items: center; 
             margin-bottom: 12px; 
             cursor: pointer;
-            /* AJUSTE FINO REALIZADO AQUI: Removido o negrito e a cor verde herdada das labels gerais */
             font-weight: normal; 
             color: #444; 
         }
@@ -420,7 +419,7 @@
             </div>
         </div>
 
-        <<div class="row" style="flex-wrap: wrap; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+        <div class="row" style="flex-wrap: wrap; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
             <script>
                 for(let i=1; i<=12; i++) {
                     document.write(`
@@ -430,7 +429,6 @@
                     </div>`);
                 }
             </script>
-        </div>
         </div>
 
         <hr class="section-separator">
