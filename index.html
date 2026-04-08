@@ -415,21 +415,12 @@
             </div>
             <div class="col form-group">
                 <label for="totalMetas">Total de Metas Previstas no Plano</label>
-                <input type="number" id="totalMetas" name="totalMetas" placeholder="Qtd total de metas">
+                <input type="number" id="totalMetas" name="totalMetas" placeholder="Qtd máxima de 12" min="0" max="12">
             </div>
         </div>
 
-        <div class="row" style="flex-wrap: wrap; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
-            <script>
-                for(let i=1; i<=12; i++) {
-                    document.write(`
-                    <div class="form-group" style="flex: 0 0 calc(25% - 20px); min-width: 150px; margin: 10px;">
-                        <label style="font-size: 13px; color: #555; font-weight: normal;">Execução Meta ${i} (%)</label>
-                        <input type="number" name="meta${i}" min="0" max="100" placeholder="%" style="padding: 8px;">
-                    </div>`);
-                }
-            </script>
-        </div>
+        <div id="metasContainer" class="row" style="flex-wrap: wrap; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee; display: none;">
+            </div>
 
         <hr class="section-separator">
 
@@ -493,7 +484,39 @@
         }
 
         gerarCamposDinamicos();
+        configurarMetasDinamicas();
     });
+
+    // --- Nova Função: Controla o aparecimento das Metas ---
+    function configurarMetasDinamicas() {
+        const inputTotalMetas = document.getElementById('totalMetas');
+        const metasContainer = document.getElementById('metasContainer');
+
+        inputTotalMetas.addEventListener('input', function() {
+            let numMetas = parseInt(this.value) || 0;
+            
+            // Limita visualmente a 12 (quantidade suportada pela planilha atualmente)
+            if (numMetas > 12) {
+                numMetas = 12;
+                this.value = 12;
+            }
+
+            metasContainer.innerHTML = ''; // Limpa os campos antes de redesenhar
+
+            if (numMetas > 0) {
+                metasContainer.style.display = 'flex';
+                for(let i = 1; i <= numMetas; i++) {
+                    metasContainer.innerHTML += `
+                    <div class="form-group" style="flex: 0 0 calc(25% - 20px); min-width: 150px; margin: 10px;">
+                        <label style="font-size: 13px; color: #555; font-weight: normal;">Execução Meta ${i} (%)</label>
+                        <input type="number" name="meta${i}" min="0" max="100" placeholder="%" style="padding: 8px;">
+                    </div>`;
+                }
+            } else {
+                metasContainer.style.display = 'none';
+            }
+        });
+    }
 
     async function carregarMunicipios() {
         const selectEstados = document.getElementById('estados');
@@ -599,15 +622,15 @@
                 checkbox.type = 'checkbox';
                 checkbox.id = `${prefixo}_${index}`;
                 checkbox.value = item;
-                checkbox.name = containerId; // Grouping by container for logic
+                checkbox.name = containerId; 
 
                 const label = document.createElement('label');
                 label.htmlFor = `${prefixo}_${index}`;
                 label.innerText = item;
                 label.style.display = 'inline';
-                label.style.fontWeight = 'normal'; // Mantendo peso normal já existente no JS
+                label.style.fontWeight = 'normal'; 
                 label.style.cursor = 'pointer';
-                label.style.color = 'inherit'; // Mantendo herança já existente no JS
+                label.style.color = 'inherit'; 
                 label.style.marginRight = '0';
 
                 const numberInput = document.createElement('input');
@@ -674,6 +697,12 @@
             return result.join(" | "); 
         };
 
+        // Função de segurança para capturar os dados das metas de 1 a 12 sem dar erro
+        const getMetaValue = (index) => {
+            const inputMeta = document.querySelector(`input[name="meta${index}"]`);
+            return inputMeta ? inputMeta.value : "";
+        };
+
         const dados = {
             numeroTED: document.getElementById('numeroTED').value,
             nomeProjeto: document.getElementById('nomeProjeto').value,
@@ -698,18 +727,18 @@
             resultadosDetalhados: getDynamicValues('resultadosGroup', 'res'),
             execucaoFisica: document.getElementById('execucaoFisica').value,
             totalMetas: document.getElementById('totalMetas').value,
-            meta1: document.querySelector('input[name="meta1"]').value,
-            meta2: document.querySelector('input[name="meta2"]').value,
-            meta3: document.querySelector('input[name="meta3"]').value,
-            meta4: document.querySelector('input[name="meta4"]').value,
-            meta5: document.querySelector('input[name="meta5"]').value,
-            meta6: document.querySelector('input[name="meta6"]').value,
-            meta7: document.querySelector('input[name="meta7"]').value,
-            meta8: document.querySelector('input[name="meta8"]').value,
-            meta9: document.querySelector('input[name="meta9"]').value,
-            meta10: document.querySelector('input[name="meta10"]').value,
-            meta11: document.querySelector('input[name="meta11"]').value,
-            meta12: document.querySelector('input[name="meta12"]').value,
+            meta1: getMetaValue(1),
+            meta2: getMetaValue(2),
+            meta3: getMetaValue(3),
+            meta4: getMetaValue(4),
+            meta5: getMetaValue(5),
+            meta6: getMetaValue(6),
+            meta7: getMetaValue(7),
+            meta8: getMetaValue(8),
+            meta9: getMetaValue(9),
+            meta10: getMetaValue(10),
+            meta11: getMetaValue(11),
+            meta12: getMetaValue(12),
             situacaoGeral: document.getElementById('situacaoGeral').value,
             cronograma: document.getElementById('cronograma').value,
             dificuldades: getCheckedValues('dificuldades')
@@ -734,6 +763,8 @@
             atualizarInterfaceMunicipios();
             document.getElementById('tematicaOutro').style.display = 'none';
             document.querySelectorAll('.dynamic-input').forEach(el => el.style.display = 'none');
+            document.getElementById('metasContainer').style.display = 'none'; // Esconde as metas após salvar
+            document.getElementById('metasContainer').innerHTML = '';
             
         } catch (error) {
             alert("Ocorreu um erro crítico ao enviar os dados. Verifique sua conexão e tente novamente em instantes.");
