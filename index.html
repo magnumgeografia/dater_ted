@@ -152,29 +152,29 @@
 
         <div class="form-group">
             <label>Abrangência</label>
-            <div class="radio-group">
-                <div class="checkbox-item"><input type="radio" name="abrangencia" value="Concentrada"> Concentrada em poucos municípios</div>
-                <div class="checkbox-item"><input type="radio" name="abrangencia" value="Distribuida"> Distribuída em vários municípios</div>
-                <div class="checkbox-item"><input type="radio" name="abrangencia" value="Estadual"> Abrangência estadual</div>
-                <div class="checkbox-item"><input type="radio" name="abrangencia" value="Interestadual"> Abrangência interestadual</div>
+            <div class="checkbox-group">
+                <div class="checkbox-item"><input type="checkbox" name="abrangencia" value="Concentrada"> Concentrada em poucos municípios</div>
+                <div class="checkbox-item"><input type="checkbox" name="abrangencia" value="Distribuida"> Distribuída em vários municípios</div>
+                <div class="checkbox-item"><input type="checkbox" name="abrangencia" value="Estadual"> Abrangência estadual</div>
+                <div class="checkbox-item"><input type="checkbox" name="abrangencia" value="Interestadual"> Abrangência interestadual</div>
             </div>
         </div>
 
         <div class="form-group">
             <label>Temática Principal</label>
-            <div class="radio-group">
-                <div class="checkbox-item"><input type="radio" name="tematica" value="Agroecologia"> Agroecologia</div>
-                <div class="checkbox-item"><input type="radio" name="tematica" value="ATER"> Assistência Técnica e Extensão Rural (ATER)</div>
-                <div class="checkbox-item"><input type="radio" name="tematica" value="Bioinsumos"> Bioinsumos</div>
-                <div class="checkbox-item"><input type="radio" name="tematica" value="Comercializacao"> Comercialização / mercados institucionais</div>
-                <div class="checkbox-item"><input type="radio" name="tematica" value="Formacao"> Formação / capacitação de agentes de ATER</div>
-                <div class="checkbox-item"><input type="radio" name="tematica" value="Inovacao"> Inovação tecnológica</div>
-                <div class="checkbox-item"><input type="radio" name="tematica" value="MeioAmbiente"> Meio ambiente e desenvolvimento sustentável</div>
-                <div class="checkbox-item"><input type="radio" name="tematica" value="Cooperativismo"> Organização produtiva / cooperativismo</div>
-                <div class="checkbox-item"><input type="radio" name="tematica" value="Producao"> Produção agropecuária</div>
-                <div class="checkbox-item"><input type="radio" name="tematica" value="SegurancaAlimentar"> Segurança alimentar e nutricional</div>
+            <div class="checkbox-group">
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="Agroecologia"> Agroecologia</div>
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="ATER"> Assistência Técnica e Extensão Rural (ATER)</div>
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="Bioinsumos"> Bioinsumos</div>
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="Comercializacao"> Comercialização / mercados institucionais</div>
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="Formacao"> Formação / capacitação de agentes de ATER</div>
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="Inovacao"> Inovação tecnológica</div>
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="MeioAmbiente"> Meio ambiente e desenvolvimento sustentável</div>
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="Cooperativismo"> Organização produtiva / cooperativismo</div>
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="Producao"> Produção agropecuária</div>
+                <div class="checkbox-item"><input type="checkbox" name="tematica" value="SegurancaAlimentar"> Segurança alimentar e nutricional</div>
                 <div class="checkbox-item">
-                    <input type="radio" name="tematica" value="Outro" onchange="toggleOutroTematica(this)"> Outro:
+                    <input type="checkbox" name="tematica" value="Outro" onchange="toggleOutroTematica(this)"> Outro:
                     <input type="text" id="tematicaOutro" name="tematicaOutro" class="dynamic-input" placeholder="Especifique...">
                 </div>
             </div>
@@ -348,26 +348,16 @@
         inputEscondido.value = listaMunicipiosAdicionados.join(', ');
     }
 
-    function toggleOutroTematica(radio) {
+    function toggleOutroTematica(checkbox) {
         const inputOutro = document.getElementById('tematicaOutro');
-        const radios = document.getElementsByName('tematica');
         
-        radios.forEach(r => {
-            r.addEventListener('change', () => {
-                if(document.querySelector('input[name="tematica"]:checked').value === 'Outro') {
-                    inputOutro.style.display = 'inline-block';
-                    inputOutro.required = true;
-                } else {
-                    inputOutro.style.display = 'none';
-                    inputOutro.required = false;
-                    inputOutro.value = '';
-                }
-            });
-        });
-        
-        if(radio.value === 'Outro') {
+        if(checkbox.checked) {
             inputOutro.style.display = 'inline-block';
             inputOutro.required = true;
+        } else {
+            inputOutro.style.display = 'none';
+            inputOutro.required = false;
+            inputOutro.value = '';
         }
     }
 
@@ -472,8 +462,8 @@
             telefone: document.getElementById('telefone').value,
             estados: Array.from(document.getElementById('estados').selectedOptions).map(opt => opt.text).join(", "),
             municipios: munSelecionados,
-            abrangencia: document.querySelector('input[name="abrangencia"]:checked') ? document.querySelector('input[name="abrangencia"]:checked').value : "",
-            tematica: document.querySelector('input[name="tematica"]:checked') ? (document.querySelector('input[name="tematica"]:checked').value === "Outro" ? "Outro: " + document.getElementById('tematicaOutro').value : document.querySelector('input[name="tematica"]:checked').value) : "",
+            abrangencia: getCheckedValues('abrangencia'),
+            tematica: Array.from(document.querySelectorAll('input[name="tematica"]:checked')).map(cb => cb.value === "Outro" ? "Outro: " + document.getElementById('tematicaOutro').value : cb.value).join(", "),
             tiposAcao: getCheckedValues('tiposAcao'),
             totalBeneficiarios: document.getElementById('totalBeneficiarios').value,
             beneficiariosDetalhados: getDynamicValues('ben'),
@@ -492,7 +482,6 @@
             dificuldades: getCheckedValues('dificuldades')
         };
 
-        // NÃO SE ESQUEÇA DE COLAR SUA URL AQUI ANTES DE ENVIAR PARA O GITHUB!
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxKpXQB3KaVw5MQSllK72CqjUe86k3YIP4BoFoImLffUjS4v59ZFeaKyHBR-PtOMJ6flw/exec";
 
         try {
