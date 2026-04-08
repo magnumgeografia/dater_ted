@@ -467,6 +467,9 @@
             </div>
         </div>
 
+       <div style="text-align: center; color: #e67e22; font-size: 14px; font-weight: 600; margin-top: 25px; margin-bottom: -10px;">
+            ⏳ Após clicar em salvar, por favor, aguarde a mensagem de confirmação antes de fechar a página.
+        </div>
         <button type="button" onclick="salvarFormulario()">Salvar Dados do Monitoramento</button>
     </form>
 </div>
@@ -708,7 +711,7 @@
             dificuldades: getCheckedValues('dificuldades')
         };
 
-        const URL_APPS_SCRIPT = "https://default9367b38e17eb4358a6655ca5bdfaf0.c2.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/1942723c5bc543dcbb3d27fef3928e57/triggers/manual/paths/invoke?api-version=1";
+        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxKpXQB3KaVw5MQSllK72CqjUe86k3YIP4BoFoImLffUjS4v59ZFeaKyHBR-PtOMJ6flw/exec";
 
         try {
             await fetch(URL_APPS_SCRIPT, {
