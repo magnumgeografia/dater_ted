@@ -18,7 +18,7 @@
         }
 
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: var(--cor-fundo); 
             color: #444; 
             margin: 0; 
@@ -26,19 +26,19 @@
         }
 
         .container { 
-            max-width: 950px; /* Um pouco mais largo */
+            max-width: 950px; 
             background: var(--cor-card); 
             padding: 40px; 
             margin: 20px auto; 
-            border-radius: 12px; /* Cantos mais arredondados */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Sombra mais suave e elegante */
-            border-top: 5px solid var(--cor-primaria); /* Barra de destaque no topo */
+            border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            border-top: 5px solid var(--cor-primaria); 
         }
 
         /* --- Cabeçalho Centralizado --- */
         .form-header { 
             display: flex; 
-            justify-content: center; /* Centralizar logos */
+            justify-content: center; 
             align-items: center; 
             margin-bottom: 30px; 
             padding-bottom: 20px; 
@@ -48,7 +48,7 @@
         .form-header img { 
             max-height: 65px; 
             width: auto; 
-            filter: grayscale(10%) contrast(110%); /* Ajuste leve nas imagens */
+            filter: grayscale(10%) contrast(110%); 
         }
 
         h2 { 
@@ -90,7 +90,7 @@
             display: block; 
             font-weight: 600; 
             margin-bottom: 8px; 
-            color: var(--cor-primaria); /* Labels em verde escuro */
+            color: var(--cor-primaria); 
             font-size: 14px;
         }
 
@@ -99,19 +99,19 @@
         input[type="email"], 
         select { 
             width: 100%; 
-            padding: 12px 15px; /* Mais respiro */
+            padding: 12px 15px; 
             border: 1px solid var(--cor-borda); 
             border-radius: 6px; 
             box-sizing: border-box; 
             font-size: 14px; 
-            transition: all 0.3s; /* Transição suave */
+            transition: all 0.3s; 
             background-color: #fff;
         }
 
         input:focus, select:focus {
-            border-color: var(--cor-destaque); /* Foco terracota */
+            border-color: var(--cor-destaque); 
             outline: none;
-            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15); /* Brilho suave */
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15); 
         }
 
         select[multiple] { height: 130px; padding: 10px; }
@@ -133,13 +133,12 @@
         }
         .checkbox-item:last-child { margin-bottom: 0; }
         
-        /* Customizando a aparência do checkbox/radio */
         .checkbox-item input[type="checkbox"], 
         .checkbox-item input[type="radio"] { 
             margin-right: 12px; 
             width: 18px;
             height: 18px;
-            accent-color: var(--cor-primaria); /* Cor do check em verde floresta */
+            accent-color: var(--cor-primaria); 
             cursor: pointer;
         }
 
@@ -155,7 +154,6 @@
         .row { display: flex; gap: 25px; flex-wrap: wrap; }
         .col { flex: 1; min-width: 250px; }
         
-        /* Separador visual opcional entre seções */
         .section-separator {
             border: 0;
             border-top: 1px solid #eee;
@@ -181,7 +179,7 @@
         }
         button:hover { 
             background-color: var(--cor-primaria-hover); 
-            transform: translateY(-2px); /* Efeito de elevação */
+            transform: translateY(-2px); 
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         button:disabled { background-color: #a9a9a9; cursor: not-allowed; transform: none; box-shadow: none;}
@@ -209,6 +207,29 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
+        /* NOVO: Botão Apagar Todos (Vermelho sutil) */
+        .btn-limpar {
+            background-color: transparent !important;
+            color: #c0392b !important;
+            border: 1px solid #c0392b !important;
+            padding: 5px 12px !important;
+            margin-top: 12px !important;
+            width: auto !important;
+            height: fit-content;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-limpar:hover {
+            background-color: #fceceb !important;
+            transform: none;
+            box-shadow: none;
+        }
+
         /* --- Tags de Municípios Terracota --- */
         .tags-container { 
             margin-top: 15px; 
@@ -217,10 +238,10 @@
             gap: 10px; 
         }
         .tag { 
-            background-color: var(--cor-destaque); /* Tags terracota */
+            background-color: var(--cor-destaque); 
             color: white; 
             padding: 6px 14px; 
-            border-radius: 20px; /* Formato pílula */
+            border-radius: 20px; 
             font-size: 13px; 
             display: flex; 
             align-items: center; 
@@ -339,7 +360,10 @@
                     <select id="municipios" multiple style="flex: 1;"></select>
                     <button type="button" class="btn-incluir" onclick="incluirMunicipios()">Incluir</button>
                 </div>
+                
                 <div id="municipiosSelecionadosContainer" class="tags-container"></div>
+                <button type="button" id="btnLimparMunicipios" class="btn-limpar" onclick="limparTodosMunicipios()" style="display: none;">🗑️ Apagar Todos</button>
+                
                 <input type="hidden" id="municipiosFinais" name="municipiosFinais">
             </div>
         </div>
@@ -414,7 +438,7 @@
                 <input type="number" id="execucaoFisica" name="execucaoFisica" min="0" max="100" placeholder="0 a 100">
             </div>
             <div class="col form-group">
-                <label for="totalMetas">Total de Metas Previstas no Plano (até 12 metas)</label>
+                <label for="totalMetas">Total de Metas Previstas no Plano</label>
                 <input type="number" id="totalMetas" name="totalMetas" placeholder="Qtd máxima de 12" min="0" max="12">
             </div>
         </div>
@@ -487,7 +511,6 @@
         configurarMetasDinamicas();
     });
 
-    // --- Nova Função: Controla o aparecimento das Metas ---
     function configurarMetasDinamicas() {
         const inputTotalMetas = document.getElementById('totalMetas');
         const metasContainer = document.getElementById('metasContainer');
@@ -495,13 +518,12 @@
         inputTotalMetas.addEventListener('input', function() {
             let numMetas = parseInt(this.value) || 0;
             
-            // Limita visualmente a 12 (quantidade suportada pela planilha atualmente)
             if (numMetas > 12) {
                 numMetas = 12;
                 this.value = 12;
             }
 
-            metasContainer.innerHTML = ''; // Limpa os campos antes de redesenhar
+            metasContainer.innerHTML = ''; 
 
             if (numMetas > 0) {
                 metasContainer.style.display = 'flex';
@@ -568,9 +590,18 @@
         atualizarInterfaceMunicipios();
     }
 
+    // --- NOVA FUNÇÃO: LIMPAR TODOS ---
+    function limparTodosMunicipios() {
+        if(confirm("Tem certeza que deseja apagar todos os municípios selecionados?")) {
+            listaMunicipiosAdicionados = [];
+            atualizarInterfaceMunicipios();
+        }
+    }
+
     function atualizarInterfaceMunicipios() {
         const container = document.getElementById('municipiosSelecionadosContainer');
         const inputEscondido = document.getElementById('municipiosFinais');
+        const btnLimpar = document.getElementById('btnLimparMunicipios'); // Pega o novo botão
         
         container.innerHTML = '';
         
@@ -582,6 +613,13 @@
         });
         
         inputEscondido.value = listaMunicipiosAdicionados.join(', ');
+
+        // Lógica de exibição do botão Apagar Todos
+        if (listaMunicipiosAdicionados.length > 0) {
+            btnLimpar.style.display = 'inline-block';
+        } else {
+            btnLimpar.style.display = 'none';
+        }
     }
 
     function toggleOutroTematica(checkbox) {
@@ -697,7 +735,6 @@
             return result.join(" | "); 
         };
 
-        // Função de segurança para capturar os dados das metas de 1 a 12 sem dar erro
         const getMetaValue = (index) => {
             const inputMeta = document.querySelector(`input[name="meta${index}"]`);
             return inputMeta ? inputMeta.value : "";
@@ -763,7 +800,7 @@
             atualizarInterfaceMunicipios();
             document.getElementById('tematicaOutro').style.display = 'none';
             document.querySelectorAll('.dynamic-input').forEach(el => el.style.display = 'none');
-            document.getElementById('metasContainer').style.display = 'none'; // Esconde as metas após salvar
+            document.getElementById('metasContainer').style.display = 'none'; 
             document.getElementById('metasContainer').innerHTML = '';
             
         } catch (error) {
