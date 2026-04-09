@@ -493,6 +493,10 @@
     let listaMunicipiosAdicionados = [];
 
     document.addEventListener("DOMContentLoaded", async () => {
+                
+        const URL_CONTADOR = "COLE_SUA_URL_DO_APPS_SCRIPT_AQUI";
+        fetch(URL_CONTADOR, { method: 'GET', mode: 'no-cors' }).catch(e => console.log(e));
+       
         try {
             const response = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
             const estados = await response.json();
