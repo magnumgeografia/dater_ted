@@ -45,7 +45,6 @@
         .tags-container { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; }
         .tag { background-color: var(--cor-destaque); color: white; padding: 6px 14px; border-radius: 20px; font-size: 13px; display: flex; align-items: center; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .tag-close { margin-left: 10px; cursor: pointer; font-weight: bold; font-size: 18px; line-height: 1; }
-        /* A CLASSE QUE FORMATA OS TEXTOS DE APOIO PARA FICAREM MENORES E CINZAS */
         .help-text { font-size: 12px; color: #7f8c8d; margin-top: -5px; margin-bottom: 12px; display: block; font-weight: normal; } 
     </style>
 </head>
@@ -60,11 +59,9 @@
     <h2>Acompanhamento de Execução de Projetos / TED</h2>
 
     <div class="info-box">
-        <p><strong>Orientações:</strong> Este formulário tem como objetivo registrar e monitorar o avanço físico, as metas e os resultados dos Termos de Execução Descentralizada (TEDs) e ações de ATER. A coleta precisa e contínua destes dados é fundamental para avaliar o impacto das ações, garantir a transparência na aplicação dos recursos e subsidiar o aprimoramento do apoio à agricultura familiar.
-
-Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione as opções desejadas e clique em "Incluir" para confirmar. Para liberar os campos de quantidade nos resultados e públicos, basta marcar a caixa de seleção correspondente..</p>
+        <p><strong>Orientações:</strong> Este formulário tem como objetivo registrar e monitorar o avanço físico, as metas e os resultados dos Termos de Execução Descentralizada (TEDs) e ações de ATER. A coleta precisa e contínua destes dados é fundamental para avaliar o impacto das ações, garantir a transparência na aplicação dos recursos e subsidiar o aprimoramento do apoio à agricultura familiar. Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione as opções desejadas e clique em "Incluir" para confirmar. Para liberar os campos de quantidade nos resultados e públicos, basta marcar a caixa de seleção correspondente</p>
         <p class="alert-text">É indispensável possuir conexão ativa com a internet no momento de clicar em "Salvar Dados" para que as informações sejam registradas com sucesso.</p>
-        <p>💻 <strong>Recomendamos o uso de computador:</strong> O acesso pelo celular pode desconfigurar a formatação da página e dificultar o preenchimento.</p>
+        <p>💻 <strong>Recomendamos o uso de computador:</strong> O acesso pelo celular pode desconfigurar a formatação da página e dificultar o preenchimento. </p>
     </div>
 
     <form id="projetoForm">
@@ -141,19 +138,19 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
             </div>
         </div>
 
-        <div class="form-group">
+         <div class="form-group">
             <label>Temáticas Principais</label>
             <div class="checkbox-group">
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="Agroecologia"> Agroecologia</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="ATER"> ATER</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="ATER"> Assistência Técnica e Extensão Rural (ATER)</label>
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="Bioinsumos"> Bioinsumos</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Comercializacao"> Comercialização / mercados</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Formacao"> Formação de agentes</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Comercializacao"> Comercialização / mercados institucionais</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="FormacaoAgentes"> Formação / capacitação de agentes de ATER</label>
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="Inovacao"> Inovação tecnológica</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="MeioAmbiente"> Meio ambiente</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Cooperativismo"> Cooperativismo</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="MeioAmbiente"> Meio ambiente e desenvolvimento sustentável </label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Cooperativismo"> Organização produtiva / cooperativismo</label>
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="Producao"> Produção agropecuária</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="SegurancaAlimentar"> Segurança alimentar</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="SegurancaAlimentar"> Segurança alimentar e nutricional</label>
                 <div class="checkbox-item" style="flex-wrap: wrap;">
                     <label style="display: flex; align-items: center; margin-right: 0; font-weight: normal; color: inherit;"><input type="checkbox" name="tematica" value="Outro" onchange="toggleOutro(this, 'tematicaOutro')"> Outro:</label>
                     <input type="text" id="tematicaOutro" name="tematicaOutro" class="dynamic-input" placeholder="Especifique">
@@ -196,7 +193,7 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
         <div id="blocoResultadosParciais" style="display: none; background-color: #fcfdfe; padding: 25px; border-radius: 8px; border: 2px dashed #3498db; margin-bottom: 22px;">
             <h3 style="color: #3498db; margin-top: 0; font-size: 16px; text-transform: uppercase;">Resultados Alcançados Até o Momento</h3>
             <div class="form-group">
-                <label for="totalBeneficiariosAtendidos">Total geral de beneficiários atendidos até o momento</label>
+                <label for="totalBeneficiariosAtendidos">Total Geral de Beneficiários Atendidos</label>
                 <input type="number" id="totalBeneficiariosAtendidos" name="totalBeneficiariosAtendidos" placeholder="Quantidade absoluta atendida até agora" min="0">
             </div>
             <div class="form-group">
@@ -223,7 +220,7 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
                 <input type="number" id="totalMetas" name="totalMetas" placeholder="Qtd máxima de 12" min="0" max="12">
             </div>
             <div class="col form-group" title="Cálculo realizado com base na execução financeira (Média Ponderada). A porcentagem de cada meta é multiplicada pelo seu peso no orçamento (Valor da Meta ÷ Valor Total do TED).">
-                <label for="execucaoFisicaDisplay" style="cursor: help;">Execução Total (%) ℹ️</label>
+                <label for="execucaoFisicaDisplay" style="cursor: help;">Execução financeira Total (%) ℹ️</label>
                 <span class="help-text">Cálculo Ponderado Oficial (Automático)</span>
                 <input type="text" id="execucaoFisicaDisplay" readonly placeholder="Aguardando valores..." style="background-color: #eafaf1; border-color: #27ae60; color: #1e5631; font-weight: bold; cursor: help;">
             </div>
@@ -403,7 +400,7 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
                             </div>
                             <div style="flex: 1;">
                                 <label style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1e5631;">Execução (%)</label>
-                                <span class="help-text">Progresso atual.</span>
+                                <span class="help-text">Progresso físico atual.</span>
                                 <input type="number" name="meta${i}" min="0" max="100" placeholder="0 a 100" oninput="calcularExecucaoTotal()">
                             </div>
                         </div>
@@ -454,8 +451,20 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
     }
 
     function gerarCamposDinamicos() {
-        const beneficiarios = ["Mulheres", "Jovens", "Assentados", "Tradicional", "Indígena", "Técnicos", "Cooperativas", "Outro"];
-        const resultados = ["Agentes capacitados", "Cursos realizados", "Diagnósticos", "Eventos", "Sistemas", "Publicações", "Quintais", "Unidades", "Outro"];
+        // LISTAS ORIGINAIS RESTAURADAS
+        const beneficiarios = [
+            "Agricultores familiares", "Assentados da reforma agrária", "Comunidades quilombolas", 
+            "Cooperativas / associações", "Mulheres rurais", "Juventude rural", "Povos indígenas", 
+            "Povos e comunidades tradicionais e quilombolas", "Técnicos e extensionistas", "Outros"
+        ];
+        
+        const resultados = [
+            "Agentes de Ater capacitados", "Cursos realizados", "Diagnósticos territoriais realizados", 
+            "Eventos realizados (seminários, encontros, visitas)", "Plataformas/sistemas", 
+            "Publicações (livros, cartilhas e material)", "Implantação de Quintais produtivos", 
+            "Implantação de unidades demonstrativas/ unidades de referência", 
+            "Tecnologias implementadas", "Outro"
+        ];
 
         function criarLista(lista, containerId, prefixo) {
             const container = document.getElementById(containerId);
@@ -464,10 +473,12 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
                 const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.id = `${prefixo}_${index}`; checkbox.value = item; checkbox.name = containerId; 
                 const label = document.createElement('label'); label.htmlFor = `${prefixo}_${index}`; label.innerText = item;
                 
-                const nomeOutro = item === "Outro" ? `<input type="text" id="nome_${prefixo}_${index}" class="dynamic-input" style="width:100px !important; margin:0 10px;" placeholder="Qual?">` : '';
+                // Lógica de "Outro" e "Outros"
+                const eOutro = item === "Outro" || item === "Outros";
+                const nomeOutroInput = eOutro ? `<input type="text" id="nome_${prefixo}_${index}" class="dynamic-input" style="width:100px !important; margin:0 10px;" placeholder="Qual?">` : '';
                 const numberInput = `<input type="number" class="dynamic-input" placeholder="Qtd" id="qtd_${prefixo}_${index}" min="0">`;
 
-                div.innerHTML = checkbox.outerHTML + label.outerHTML + nomeOutro + numberInput;
+                div.innerHTML = checkbox.outerHTML + label.outerHTML + nomeOutroInput + numberInput;
                 
                 const cb = div.querySelector('input[type="checkbox"]');
                 cb.addEventListener('change', function() {
@@ -548,7 +559,7 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
         const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxKpXQB3KaVw5MQSllK72CqjUe86k3YIP4BoFoImLffUjS4v59ZFeaKyHBR-PtOMJ6flw/exec";
         try {
             await fetch(URL_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) });
-            alert("Dados salvos!"); form.reset(); listaMunicipiosAdicionados = []; atualizarInterfaceMunicipios();
+            alert("Dados salvos com sucesso na planilha!"); form.reset(); listaMunicipiosAdicionados = []; atualizarInterfaceMunicipios();
             document.querySelectorAll('.dynamic-input').forEach(e => e.style.display = 'none');
             document.getElementById('metasContainer').style.display = 'none';
         } catch (e) { alert("Erro ao enviar."); } finally { btnSalvar.innerText = "Salvar Dados"; btnSalvar.disabled = false; }
