@@ -196,7 +196,7 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
         <div id="blocoResultadosParciais" style="display: none; background-color: #fcfdfe; padding: 25px; border-radius: 8px; border: 2px dashed #3498db; margin-bottom: 22px;">
             <h3 style="color: #3498db; margin-top: 0; font-size: 16px; text-transform: uppercase;">Resultados Alcançados Até o Momento</h3>
             <div class="form-group">
-                <label for="totalBeneficiariosAtendidos">Total Geral de Beneficiários Atendidos</label>
+                <label for="totalBeneficiariosAtendidos">Total geral de beneficiários atendidos até o momento</label>
                 <input type="number" id="totalBeneficiariosAtendidos" name="totalBeneficiariosAtendidos" placeholder="Quantidade absoluta atendida até agora" min="0">
             </div>
             <div class="form-group">
@@ -223,7 +223,7 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
                 <input type="number" id="totalMetas" name="totalMetas" placeholder="Qtd máxima de 12" min="0" max="12">
             </div>
             <div class="col form-group" title="Cálculo realizado com base na execução financeira (Média Ponderada). A porcentagem de cada meta é multiplicada pelo seu peso no orçamento (Valor da Meta ÷ Valor Total do TED).">
-                <label for="execucaoFisicaDisplay" style="cursor: help;">Execução Física Total (%) ℹ️</label>
+                <label for="execucaoFisicaDisplay" style="cursor: help;">Execução Total (%) ℹ️</label>
                 <span class="help-text">Cálculo Ponderado Oficial (Automático)</span>
                 <input type="text" id="execucaoFisicaDisplay" readonly placeholder="Aguardando valores..." style="background-color: #eafaf1; border-color: #27ae60; color: #1e5631; font-weight: bold; cursor: help;">
             </div>
@@ -239,7 +239,7 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
 
         <div class="row">
             <div class="col form-group">
-                <label for="situacaoGeral">Situação Geral da Execução</label>
+                <label for="situacaoGeral">Situação Geral da Execução Física</label>
                 <select id="situacaoGeral" name="situacaoGeral">
                     <option value="">Selecione...</option>
                     <option value="Inicial">Em fase inicial (até 25%)</option>
@@ -403,7 +403,7 @@ Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione 
                             </div>
                             <div style="flex: 1;">
                                 <label style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1e5631;">Execução (%)</label>
-                                <span class="help-text">Progresso físico atual.</span>
+                                <span class="help-text">Progresso atual.</span>
                                 <input type="number" name="meta${i}" min="0" max="100" placeholder="0 a 100" oninput="calcularExecucaoTotal()">
                             </div>
                         </div>
