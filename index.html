@@ -402,6 +402,9 @@
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Pesquisa"> Pesquisa aplicada</label>
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Plataformas"> Desenvolvimento de Plataformas/sistemas</label>
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Material"> Produção de material técnico</label>
+                <div class="checkbox-item" style="flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; margin-right: 0; font-weight: normal; color: inherit;"><input type="checkbox" name="tiposAcao" value="Outro" onchange="toggleOutroTematica(this)"> Outro:</label>
+                    <input type="text" id="tematicaOutro" name="tematicaOutro" class="dynamic-input" placeholder="Especifique a ação">
             </div>
         </div>
 
@@ -412,11 +415,11 @@
             <input type="number" id="totalBeneficiariosPrevistos" name="totalBeneficiariosPrevistos" placeholder="Quantidade prevista no projeto" min="0">
         </div>
 
-        <div class="form-group">
+       <div class="form-group">
             <label>O projeto está em execução e apresenta resultados parciais?</label>
-            <div class="radio-group" style="display: flex; gap: 20px;">
-                <label class="checkbox-item"><input type="radio" name="temResultadosParciais" value="Sim" onchange="toggleResultadosParciais()"> Sim</label>
-                <label class="checkbox-item"><input type="radio" name="temResultadosParciais" value="Nao" onchange="toggleResultadosParciais()"> Não</label>
+            <div class="radio-group" style="display: flex; gap: 20px; align-items: center;">
+                <label class="checkbox-item" style="margin-bottom: 0;"><input type="radio" name="temResultadosParciais" value="Sim" onchange="toggleResultadosParciais()"> Sim</label>
+                <label class="checkbox-item" style="margin-bottom: 0;"><input type="radio" name="temResultadosParciais" value="Nao" onchange="toggleResultadosParciais()"> Não</label>
             </div>
         </div>
 
