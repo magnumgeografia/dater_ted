@@ -415,4 +415,449 @@
         <div class="form-group">
             <label>O projeto está em execução e apresenta resultados parciais?</label>
             <div class="radio-group" style="display: flex; gap: 20px;">
-                <label class="checkbox-item"><input type="radio" name="temResultadosParciais"
+                <label class="checkbox-item"><input type="radio" name="temResultadosParciais" value="Sim" onchange="toggleResultadosParciais()"> Sim</label>
+                <label class="checkbox-item"><input type="radio" name="temResultadosParciais" value="Nao" onchange="toggleResultadosParciais()"> Não</label>
+            </div>
+        </div>
+
+        <div id="blocoResultadosParciais" style="display: none; background-color: #fcfdfe; padding: 25px; border-radius: 8px; border: 2px dashed #3498db; margin-bottom: 22px;">
+            
+            <h3 style="color: #3498db; margin-top: 0; font-size: 16px; text-transform: uppercase;">Resultados Alcançados Até o Momento</h3>
+
+            <div class="form-group">
+                <label for="totalBeneficiariosAtendidos">Total Geral de Beneficiários Atendidos</label>
+                <input type="number" id="totalBeneficiariosAtendidos" name="totalBeneficiariosAtendidos" placeholder="Quantidade absoluta atendida até agora" min="0">
+            </div>
+
+            <div class="form-group">
+                <label>Públicos Atendidos (Selecione e informe a quantidade parcial)</label>
+                <div class="checkbox-group" id="beneficiariosGroup"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Resultados Alcançados (Selecione e informe a quantidade parcial)</label>
+                <div class="checkbox-group" id="resultadosGroup"></div>
+            </div>
+        </div>
+        <hr class="section-separator">
+
+        <div class="row">
+            <div class="col form-group">
+                <label for="execucaoFisica">Percentual de Execução Física Total (%)</label>
+                <input type="number" id="execucaoFisica" name="execucaoFisica" min="0" max="100" placeholder="0 a 100">
+            </div>
+            <div class="col form-group">
+                <label for="totalMetas">Total de Metas Previstas no Plano</label>
+                <input type="number" id="totalMetas" name="totalMetas" placeholder="Qtd máxima de 12" min="0" max="12">
+            </div>
+        </div>
+
+        <div id="metasContainer" class="row" style="flex-wrap: wrap; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee; display: none;">
+            </div>
+
+        <hr class="section-separator">
+
+        <div class="row">
+            <div class="col form-group">
+                <label for="situacaoGeral">Situação Geral da Execução</label>
+                <select id="situacaoGeral" name="situacaoGeral">
+                    <option value="">Selecione...</option>
+                    <option value="Inicial">Em fase inicial (até 25%)</option>
+                    <option value="Intermediaria">Em execução intermediária (26% a 75%)</option>
+                    <option value="Avancada">Em fase avançada (acima de 75%)</option>
+                    <option value="Concluido">Concluído</option>
+                </select>
+            </div>
+            <div class="col form-group">
+                <label for="cronograma">Compatível com o cronograma previsto?</label>
+                <select id="cronograma" name="cronograma">
+                    <option value="">Selecione...</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Parcialmente">Parcialmente</option>
+                    <option value="Nao">Não</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Dificuldades Enfrentadas (Múltipla seleção)</label>
+            <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="dificuldades" value="Operacionais"> Dificuldades operacionais</label>
+                <label class="checkbox-item"><input type="checkbox" name="dificuldades" value="Equipe"> Dificuldades com equipe</label>
+                <label class="checkbox-item"><input type="checkbox" name="dificuldades" value="Financeiras"> Dificuldades financeiras</label>
+                <label class="checkbox-item"><input type="checkbox" name="dificuldades" value="Logisticas"> Dificuldades logísticas/territoriais</label>
+                <label class="checkbox-item"><input type="checkbox" name="dificuldades" value="Nenhuma"> Não há dificuldades relevantes</label>
+            </div>
+        </div>
+
+       <div style="text-align: center; color: #e67e22; font-size: 14px; font-weight: 600; margin-top: 25px; margin-bottom: -10px;">
+            ⏳ Após clicar em salvar, por favor, aguarde a mensagem de confirmação antes de fechar a página.
+        </div>
+        <button type="button" onclick="salvarFormulario()">Salvar Dados do Monitoramento</button>
+    </form>
+</div>
+
+<script>
+    let listaMunicipiosAdicionados = [];
+
+    document.addEventListener("DOMContentLoaded", async () => {
+                
+        const URL_CONTADOR = "https://script.google.com/macros/s/AKfycbxKpXQB3KaVw5MQSllK72CqjUe86k3YIP4BoFoImLffUjS4v59ZFeaKyHBR-PtOMJ6flw/exec";
+        fetch(URL_CONTADOR, { method: 'GET', mode: 'no-cors' }).catch(e => console.log(e));
+       
+        try {
+            const response = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
+            const estados = await response.json();
+            const selectEstados = document.getElementById('estados');
+            
+            estados.forEach(estado => {
+                let option = document.createElement('option');
+                option.value = estado.id; 
+                option.text = estado.sigla + ' - ' + estado.nome;
+                selectEstados.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Erro ao carregar estados:", error);
+        }
+
+        gerarCamposDinamicos();
+        configurarMetasDinamicas();
+    });
+
+    // --- NOVA FUNÇÃO: Esconder ou Mostrar o bloco de resultados ---
+    function toggleResultadosParciais() {
+        const bloco = document.getElementById('blocoResultadosParciais');
+        // Pega qual opção o usuário clicou (Sim ou Não)
+        const radioSelecionado = document.querySelector('input[name="temResultadosParciais"]:checked');
+        
+        if (radioSelecionado && radioSelecionado.value === "Sim") {
+            bloco.style.display = 'block'; // Mostra
+        } else {
+            bloco.style.display = 'none'; // Esconde
+            
+            // Limpeza de segurança: Se ele esconder a caixa, apagamos o que estava lá dentro 
+            // para não ir lixo para a planilha
+            document.getElementById('totalBeneficiariosAtendidos').value = '';
+            
+            const checkboxesInternos = bloco.querySelectorAll('input[type="checkbox"]');
+            checkboxesInternos.forEach(cb => {
+                cb.checked = false;
+                // Dispara o evento para o campo de quantidade sumir também
+                cb.dispatchEvent(new Event('change')); 
+            });
+        }
+    }
+
+    function configurarMetasDinamicas() {
+        const inputTotalMetas = document.getElementById('totalMetas');
+        const metasContainer = document.getElementById('metasContainer');
+
+        inputTotalMetas.addEventListener('input', function() {
+            let numMetas = parseInt(this.value) || 0;
+            
+            if (numMetas > 12) {
+                numMetas = 12;
+                this.value = 12;
+            }
+
+            metasContainer.innerHTML = ''; 
+
+            if (numMetas > 0) {
+                metasContainer.style.display = 'flex';
+                for(let i = 1; i <= numMetas; i++) {
+                    metasContainer.innerHTML += `
+                    <div class="form-group" style="flex: 0 0 calc(25% - 20px); min-width: 150px; margin: 10px;">
+                        <label style="font-size: 13px; color: #555; font-weight: normal;">Execução Meta ${i} (%)</label>
+                        <input type="number" name="meta${i}" min="0" max="100" placeholder="%" style="padding: 8px;">
+                    </div>`;
+                }
+            } else {
+                metasContainer.style.display = 'none';
+            }
+        });
+    }
+
+    async function carregarMunicipios() {
+        const selectEstados = document.getElementById('estados');
+        const selectMunicipios = document.getElementById('municipios');
+        const estadosSelecionados = Array.from(selectEstados.selectedOptions).map(opt => opt.value);
+        
+        selectMunicipios.innerHTML = ''; 
+        
+        if(estadosSelecionados.length > 0) {
+            try {
+                const ids = estadosSelecionados.join('|');
+                const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ids}/municipios`);
+                let municipios = await response.json();
+                
+                municipios.sort((a, b) => a.nome.localeCompare(b.nome));
+
+                municipios.forEach(mun => {
+                    const siglaUF = mun.microrregiao.mesorregiao.UF.sigla;
+                    const nomeComSigla = `${siglaUF} - ${mun.nome}`;
+
+                    let option = document.createElement('option');
+                    option.value = nomeComSigla;
+                    option.text = nomeComSigla;
+                    selectMunicipios.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar municípios:", error);
+            }
+        }
+    }
+
+    function incluirMunicipios() {
+        const selectMunicipios = document.getElementById('municipios');
+        const opcoesSelecionadas = Array.from(selectMunicipios.selectedOptions);
+        
+        opcoesSelecionadas.forEach(opt => {
+            const nomeMunicipio = opt.value; 
+            if (!listaMunicipiosAdicionados.includes(nomeMunicipio)) {
+                listaMunicipiosAdicionados.push(nomeMunicipio);
+            }
+        });
+        
+        selectMunicipios.selectedIndex = -1; 
+        atualizarInterfaceMunicipios();
+    }
+
+    function removerMunicipio(nomeMunicipio) {
+        listaMunicipiosAdicionados = listaMunicipiosAdicionados.filter(mun => mun !== nomeMunicipio);
+        atualizarInterfaceMunicipios();
+    }
+
+    function limparTodosMunicipios() {
+        if(confirm("Tem certeza que deseja apagar todos os municípios selecionados?")) {
+            listaMunicipiosAdicionados = [];
+            atualizarInterfaceMunicipios();
+        }
+    }
+
+    function atualizarInterfaceMunicipios() {
+        const container = document.getElementById('municipiosSelecionadosContainer');
+        const inputEscondido = document.getElementById('municipiosFinais');
+        const btnLimpar = document.getElementById('btnLimparMunicipios'); 
+        
+        container.innerHTML = '';
+        
+        listaMunicipiosAdicionados.forEach(mun => {
+            const divTag = document.createElement('div');
+            divTag.className = 'tag';
+            divTag.innerHTML = `${mun} <span class="tag-close" onclick="removerMunicipio('${mun}')">&times;</span>`;
+            container.appendChild(divTag);
+        });
+        
+        inputEscondido.value = listaMunicipiosAdicionados.join(', ');
+
+        if (listaMunicipiosAdicionados.length > 0) {
+            btnLimpar.style.display = 'inline-block';
+        } else {
+            btnLimpar.style.display = 'none';
+        }
+    }
+
+    function toggleOutroTematica(checkbox) {
+        const inputOutro = document.getElementById('tematicaOutro');
+        
+        if(checkbox.checked) {
+            inputOutro.style.display = 'inline-block';
+            inputOutro.required = true;
+            inputOutro.focus();
+        } else {
+            inputOutro.style.display = 'none';
+            inputOutro.required = false;
+            inputOutro.value = '';
+        }
+    }
+
+    function gerarCamposDinamicos() {
+        const beneficiarios = [
+            "Mulheres", "Jovens", "Assentados da reforma agrária", 
+            "Comunidade tradicional", "Comunidade indígena", 
+            "Técnicos e extensionistas", "Cooperativas / associações"
+        ];
+        
+        const resultados = [
+            "Agentes de Ater capacitados", "Cursos realizados", 
+            "Diagnósticos territoriais realizados", "Eventos realizados (seminários, encontros, visitas)", 
+            "Plataformas/sistemas virtuais", "Publicações (livros, cartilhas e material)", 
+            "Quintais produtivos implantados", "Unidades de referência implantadas"
+        ];
+
+        function criarLista(lista, containerId, prefixo) {
+            const container = document.getElementById(containerId);
+            lista.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'checkbox-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `${prefixo}_${index}`;
+                checkbox.value = item;
+                checkbox.name = containerId; 
+
+                const label = document.createElement('label');
+                label.htmlFor = `${prefixo}_${index}`;
+                label.innerText = item;
+                label.style.display = 'inline';
+                label.style.fontWeight = 'normal'; 
+                label.style.cursor = 'pointer';
+                label.style.color = 'inherit'; 
+                label.style.marginRight = '0';
+
+                const numberInput = document.createElement('input');
+                numberInput.type = 'number';
+                numberInput.className = 'dynamic-input';
+                numberInput.placeholder = 'Qtd';
+                numberInput.id = `qtd_${prefixo}_${index}`;
+                numberInput.min = "0";
+
+                checkbox.addEventListener('change', function() {
+                    if(this.checked) {
+                        numberInput.style.display = 'inline-block';
+                        numberInput.required = true;
+                        numberInput.focus();
+                    } else {
+                        numberInput.style.display = 'none';
+                        numberInput.required = false;
+                        numberInput.value = '';
+                    }
+                });
+
+                div.appendChild(checkbox);
+                div.appendChild(label);
+                div.appendChild(numberInput);
+                container.appendChild(div);
+            });
+        }
+
+        criarLista(beneficiarios, 'beneficiariosGroup', 'ben');
+        criarLista(resultados, 'resultadosGroup', 'res');
+    }
+
+    async function salvarFormulario() {
+        const btnSalvar = document.querySelector('button[onclick="salvarFormulario()"]');
+        const form = document.getElementById('projetoForm');
+        
+        if(!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const munSelecionados = document.getElementById('municipiosFinais').value;
+        if(munSelecionados.trim() === "") {
+            alert("Atenção: Nenhum MUNICÍPIO foi incluído nas tags. Selecione na lista e clique em 'Incluir'.");
+            document.getElementById('municipios').focus();
+            return; 
+        }
+
+        btnSalvar.innerText = "Enviando dados... Aguarde";
+        btnSalvar.disabled = true;
+
+        const getCheckedValues = (name) => {
+            return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(cb => cb.value).join(", ");
+        };
+
+        const getDynamicValues = (containerId, prefix) => {
+            let result = [];
+            const container = document.getElementById(containerId);
+            container.querySelectorAll(`input[type="checkbox"]:checked`).forEach(cb => {
+                const index = cb.id.split('_')[1];
+                const qtd = document.getElementById(`qtd_${prefix}_${index}`).value || "0";
+                result.push(`${cb.value}: ${qtd}`);
+            });
+            return result.join(" | "); 
+        };
+
+        const getMetaValue = (index) => {
+            const inputMeta = document.querySelector(`input[name="meta${index}"]`);
+            return inputMeta ? inputMeta.value : "";
+        };
+
+        // Captura o valor do botão de rádio Sim/Não
+        const radioResultados = document.querySelector('input[name="temResultadosParciais"]:checked');
+        const temResultadosParciaisValor = radioResultados ? radioResultados.value : "";
+
+        const dados = {
+            numeroTED: document.getElementById('numeroTED').value,
+            nomeProjeto: document.getElementById('nomeProjeto').value,
+            instituicao: document.getElementById('instituicao').value,
+            estadoInstituicao: document.getElementById('estadoInstituicao').value,
+            coordenador: document.getElementById('coordenador').value,
+            email: document.getElementById('email').value,
+            telefone: document.getElementById('telefone').value,
+            estados: Array.from(document.getElementById('estados').selectedOptions).map(opt => opt.text).join(", "),
+            municipios: munSelecionados,
+            abrangencia: getCheckedValues('abrangencia'),
+            tematica: Array.from(document.querySelectorAll('input[name="tematica"]:checked')).map(cb => {
+                if (cb.value === "Outro") {
+                    const outroTxt = document.getElementById('tematicaOutro').value;
+                    return outroTxt ? `Outro: ${outroTxt}` : "Outro";
+                }
+                return cb.value;
+            }).join(", "),
+            tiposAcao: getCheckedValues('tiposAcao'),
+            
+            // --- OS 3 NOVOS CAMPOS AQUI ---
+            totalBeneficiariosPrevistos: document.getElementById('totalBeneficiariosPrevistos').value,
+            temResultadosParciais: temResultadosParciaisValor,
+            totalBeneficiariosAtendidos: document.getElementById('totalBeneficiariosAtendidos').value,
+            // ------------------------------
+
+            beneficiariosDetalhados: getDynamicValues('beneficiariosGroup', 'ben'),
+            resultadosDetalhados: getDynamicValues('resultadosGroup', 'res'),
+            execucaoFisica: document.getElementById('execucaoFisica').value,
+            totalMetas: document.getElementById('totalMetas').value,
+            meta1: getMetaValue(1),
+            meta2: getMetaValue(2),
+            meta3: getMetaValue(3),
+            meta4: getMetaValue(4),
+            meta5: getMetaValue(5),
+            meta6: getMetaValue(6),
+            meta7: getMetaValue(7),
+            meta8: getMetaValue(8),
+            meta9: getMetaValue(9),
+            meta10: getMetaValue(10),
+            meta11: getMetaValue(11),
+            meta12: getMetaValue(12),
+            situacaoGeral: document.getElementById('situacaoGeral').value,
+            cronograma: document.getElementById('cronograma').value,
+            dificuldades: getCheckedValues('dificuldades')
+        };
+
+        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxKpXQB3KaVw5MQSllK72CqjUe86k3YIP4BoFoImLffUjS4v59ZFeaKyHBR-PtOMJ6flw/exec";
+
+        try {
+            await fetch(URL_APPS_SCRIPT, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dados)
+            });
+
+            alert("Dados salvos com sucesso na planilha de monitoramento!");
+            
+            form.reset();
+            listaMunicipiosAdicionados = []; 
+            atualizarInterfaceMunicipios();
+            document.getElementById('tematicaOutro').style.display = 'none';
+            document.querySelectorAll('.dynamic-input').forEach(el => el.style.display = 'none');
+            document.getElementById('metasContainer').style.display = 'none'; 
+            document.getElementById('metasContainer').innerHTML = '';
+            document.getElementById('blocoResultadosParciais').style.display = 'none'; // Esconde a caixa nova ao reiniciar
+            
+        } catch (error) {
+            alert("Ocorreu um erro crítico ao enviar os dados. Verifique sua conexão e tente novamente em instantes.");
+            console.error(error);
+        } finally {
+            btnSalvar.innerText = "Salvar Dados do Monitoramento";
+            btnSalvar.disabled = false;
+        }
+    }
+</script>
+
+</body>
+</html>
