@@ -6,7 +6,6 @@
     <title>Formulário de Acompanhamento de Projetos - TED</title>
     <link rel="icon" href="icone.PNG?v=2" type="image/png">
     <style>
-        /* --- Nova Paleta de Cores e Estilos Globais --- */
         :root {
             --cor-fundo: #fafaf5;
             --cor-card: #ffffff;
@@ -18,237 +17,36 @@
             --cor-info-fundo: #eafaf1;
         }
 
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--cor-fundo); 
-            color: #444; 
-            margin: 0; 
-            padding: 20px; 
-        }
-
-        .container { 
-            max-width: 950px; 
-            background: var(--cor-card); 
-            padding: 40px; 
-            margin: 20px auto; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-            border-top: 5px solid var(--cor-primaria); 
-        }
-
-        .form-header { 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            margin-bottom: 30px; 
-            padding-bottom: 20px; 
-            border-bottom: 1px solid #eee;
-            gap: 30px;
-        }
-        .form-header img { 
-            max-height: 65px; 
-            width: auto; 
-            filter: grayscale(10%) contrast(110%); 
-        }
-
-        h2 { 
-            text-align: center; 
-            color: var(--cor-primaria); 
-            margin-bottom: 25px; 
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        
-        .info-box {
-            background-color: var(--cor-info-fundo);
-            border-left: 4px solid var(--cor-primaria);
-            padding: 20px;
-            margin-bottom: 35px;
-            border-radius: 8px;
-            font-size: 14px;
-            line-height: 1.7;
-            color: var(--cor-texto-escuro);
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
-        }
-        .info-box p { margin: 0 0 12px 0; }
-        .info-box p:last-child { margin: 0; }
-        .info-box strong { color: var(--cor-primaria); }
-        .alert-text { 
-            color: #c0392b; 
-            font-weight: bold; 
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--cor-fundo); color: #444; margin: 0; padding: 20px; }
+        .container { max-width: 950px; background: var(--cor-card); padding: 40px; margin: 20px auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-top: 5px solid var(--cor-primaria); }
+        .form-header { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; gap: 30px; }
+        .form-header img { max-height: 65px; width: auto; filter: grayscale(10%) contrast(110%); }
+        h2 { text-align: center; color: var(--cor-primaria); margin-bottom: 25px; font-weight: 700; letter-spacing: -0.5px; }
+        .info-box { background-color: var(--cor-info-fundo); border-left: 4px solid var(--cor-primaria); padding: 20px; margin-bottom: 35px; border-radius: 8px; font-size: 14px; line-height: 1.7; color: var(--cor-texto-escuro); box-shadow: inset 0 0 10px rgba(0,0,0,0.02); }
+        .alert-text { color: #c0392b; font-weight: bold; display: flex; align-items: center; gap: 5px; }
         .alert-text::before { content: '⚠️'; }
-        
         .form-group { margin-bottom: 22px; }
-        
-        label { 
-            display: block; 
-            font-weight: 600; 
-            margin-bottom: 8px; 
-            color: var(--cor-primaria); 
-            font-size: 14px;
-        }
-
-        input[type="text"], 
-        input[type="number"], 
-        input[type="email"], 
-        select { 
-            width: 100%; 
-            padding: 12px 15px; 
-            border: 1px solid var(--cor-borda); 
-            border-radius: 6px; 
-            box-sizing: border-box; 
-            font-size: 14px; 
-            transition: all 0.3s; 
-            background-color: #fff;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--cor-destaque); 
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15); 
-        }
-
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--cor-primaria); font-size: 14px; }
+        input[type="text"], input[type="number"], input[type="email"], select { width: 100%; padding: 12px 15px; border: 1px solid var(--cor-borda); border-radius: 6px; box-sizing: border-box; font-size: 14px; transition: all 0.3s; background-color: #fff; }
+        input:focus, select:focus { border-color: var(--cor-destaque); outline: none; box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15); }
         select[multiple] { height: 130px; padding: 10px; }
-
-        .checkbox-group, .radio-group { 
-            background: #fbfbfb; 
-            padding: 18px; 
-            border: 1px solid var(--cor-borda); 
-            border-radius: 8px; 
-        }
-        .checkbox-item { 
-            display: flex; 
-            align-items: center; 
-            margin-bottom: 12px; 
-            cursor: pointer;
-            font-weight: normal; 
-            color: #444; 
-        }
+        .checkbox-group { background: #fbfbfb; padding: 18px; border: 1px solid var(--cor-borda); border-radius: 8px; }
+        .checkbox-item { display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; font-weight: normal; color: #444; }
         .checkbox-item:last-child { margin-bottom: 0; }
-        
-        .checkbox-item input[type="checkbox"], 
-        .checkbox-item input[type="radio"] { 
-            margin-right: 12px; 
-            width: 18px;
-            height: 18px;
-            accent-color: var(--cor-primaria); 
-            cursor: pointer;
-        }
-
-        .dynamic-input { 
-            display: none; 
-            margin-left: 15px; 
-            width: 140px !important; 
-            padding: 8px !important; 
-            border-color: var(--cor-primaria);
-        }
-
+        .checkbox-item input[type="checkbox"], .checkbox-item input[type="radio"] { margin-right: 12px; width: 18px; height: 18px; accent-color: var(--cor-primaria); cursor: pointer; }
+        .dynamic-input { display: none; margin-left: 15px; width: 140px !important; padding: 8px !important; border-color: var(--cor-primaria); }
         .row { display: flex; gap: 25px; flex-wrap: wrap; }
         .col { flex: 1; min-width: 250px; }
-        
-        .section-separator {
-            border: 0;
-            border-top: 1px solid #eee;
-            margin: 30px 0;
-        }
-
-        button { 
-            background-color: var(--cor-primaria); 
-            color: white; 
-            padding: 15px 25px; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            width: 100%; 
-            font-weight: 700; 
-            margin-top: 25px; 
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        button:hover { 
-            background-color: var(--cor-primaria-hover); 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        button:disabled { background-color: #a9a9a9; cursor: not-allowed; transform: none; box-shadow: none;}
-
-        .help-text { font-size: 12px; color: #7f8c8d; margin-top: -5px; margin-bottom: 12px; display: block; }
-        
-        .btn-incluir { 
-            background-color: var(--cor-card) !important; 
-            color: var(--cor-destaque) !important;
-            border: 2px solid var(--cor-destaque) !important;
-            padding: 10px 20px !important; 
-            margin-top: 0 !important; 
-            width: auto !important; 
-            height: fit-content; 
-            font-size: 14px;
-            text-transform: none;
-            letter-spacing: normal;
-            box-shadow: none;
-        }
-        .btn-incluir:hover { 
-            background-color: var(--cor-destaque) !important; 
-            color: white !important;
-            transform: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .btn-limpar {
-            background-color: transparent !important;
-            color: #c0392b !important;
-            border: 1px solid #c0392b !important;
-            padding: 5px 12px !important;
-            margin-top: 12px !important;
-            width: auto !important;
-            height: fit-content;
-            font-size: 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            box-shadow: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .btn-limpar:hover {
-            background-color: #fceceb !important;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .tags-container { 
-            margin-top: 15px; 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 10px; 
-        }
-        .tag { 
-            background-color: var(--cor-destaque); 
-            color: white; 
-            padding: 6px 14px; 
-            border-radius: 20px; 
-            font-size: 13px; 
-            display: flex; 
-            align-items: center; 
-            font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .tag-close { 
-            margin-left: 10px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            color: rgba(255,255,255,0.8); 
-            font-size: 18px; 
-            line-height: 1;
-        }
-        .tag-close:hover { color: white; }
+        .section-separator { border: 0; border-top: 1px solid #eee; margin: 30px 0; }
+        button { background-color: var(--cor-primaria); color: white; padding: 15px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; width: 100%; font-weight: 700; margin-top: 25px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        button:hover { background-color: var(--cor-primaria-hover); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        .btn-incluir { background-color: var(--cor-card) !important; color: var(--cor-destaque) !important; border: 2px solid var(--cor-destaque) !important; padding: 10px 20px !important; margin-top: 0 !important; width: auto !important; height: fit-content; font-size: 14px; text-transform: none; box-shadow: none; }
+        .btn-limpar { background-color: transparent !important; color: #c0392b !important; border: 1px solid #c0392b !important; padding: 5px 12px !important; margin-top: 12px !important; width: auto !important; height: fit-content; font-size: 12px; border-radius: 4px; font-weight: 600; text-transform: uppercase; }
+        .tags-container { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { background-color: var(--cor-destaque); color: white; padding: 6px 14px; border-radius: 20px; font-size: 13px; display: flex; align-items: center; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .tag-close { margin-left: 10px; cursor: pointer; font-weight: bold; font-size: 18px; line-height: 1; }
+        /* A CLASSE QUE FORMATA OS TEXTOS DE APOIO PARA FICAREM MENORES E CINZAS */
+        .help-text { font-size: 12px; color: #7f8c8d; margin-top: -5px; margin-bottom: 12px; display: block; font-weight: normal; } 
     </style>
 </head>
 <body>
@@ -262,14 +60,12 @@
     <h2>Acompanhamento de Execução de Projetos / TED</h2>
 
     <div class="info-box">
-        <p><strong>Orientações:</strong> Este formulário tem como objetivo registrar e monitorar o avanço físico, as metas e os resultados dos Termos de Execução Descentralizada (TEDs) e ações de ATER. A coleta precisa e contínua destes dados é fundamental para avaliar o impacto das ações, garantir a transparência na aplicação dos recursos e subsidiar o aprimoramento do apoio à agricultura familiar.</p>
-        <p>Preencha os dados com atenção. Nos campos de Estados e Municípios, selecione as opções desejadas e clique em <strong>"Incluir"</strong> para confirmar. Para liberar os campos de quantidade nos resultados e públicos, basta marcar a caixa de seleção correspondente.</p>
-        <p class="alert-text">É indispensável possuir conexão ativa com a internet no momento de clicar em "Salvar Dados" para que as informações sejam registradas com sucesso.</p>
-        <p>💻 <strong>Recomendamos o uso de computador:</strong> O acesso pelo celular pode desconfigurar a formatação da página e dificultar o preenchimento.</p>
+        <p><strong>Orientações:</strong> Este formulário registra o avanço físico e financeiro das metas de TEDs e ações de ATER.</p>
+        <p class="alert-text">É indispensável possuir conexão ativa com a internet no momento de salvar.</p>
+        <p>💻 <strong>Recomendamos o uso de computador:</strong> O acesso pelo celular pode desconfigurar a página.</p>
     </div>
 
     <form id="projetoForm">
-
         <div class="row">
             <div class="col form-group">
                 <label for="numeroTED">Número do TED</label>
@@ -290,33 +86,7 @@
                 <label for="estadoInstituicao">Estado da Instituição (UF)</label>
                 <select id="estadoInstituicao" name="estadoInstituicao" required>
                     <option value="">Selecione...</option>
-                    <option value="AC">Acre</option>
-                    <option value="AL">Alagoas</option>
-                    <option value="AP">Amapá</option>
-                    <option value="AM">Amazonas</option>
-                    <option value="BA">Bahia</option>
-                    <option value="CE">Ceará</option>
-                    <option value="DF">Distrito Federal</option>
-                    <option value="ES">Espírito Santo</option>
-                    <option value="GO">Goiás</option>
-                    <option value="MA">Maranhão</option>
-                    <option value="MT">Mato Grosso</option>
-                    <option value="MS">Mato Grosso do Sul</option>
-                    <option value="MG">Minas Gerais</option>
-                    <option value="PA">Pará</option>
-                    <option value="PB">Paraíba</option>
-                    <option value="PR">Paraná</option>
-                    <option value="PE">Pernambuco</option>
-                    <option value="PI">Piauí</option>
-                    <option value="RJ">Rio de Janeiro</option>
-                    <option value="RN">Rio Grande do Norte</option>
-                    <option value="RS">Rio Grande do Sul</option>
-                    <option value="RO">Rondônia</option>
-                    <option value="RR">Roraima</option>
-                    <option value="SC">Santa Catarina</option>
-                    <option value="SP">São Paulo</option>
-                    <option value="SE">Sergipe</option>
-                    <option value="TO">Tocantins</option>
+                    <option value="AC">Acre</option><option value="AL">Alagoas</option><option value="AP">Amapá</option><option value="AM">Amazonas</option><option value="BA">Bahia</option><option value="CE">Ceará</option><option value="DF">Distrito Federal</option><option value="ES">Espírito Santo</option><option value="GO">Goiás</option><option value="MA">Maranhão</option><option value="MT">Mato Grosso</option><option value="MS">Mato Grosso do Sul</option><option value="MG">Minas Gerais</option><option value="PA">Pará</option><option value="PB">Paraíba</option><option value="PR">Paraná</option><option value="PE">Pernambuco</option><option value="PI">Piauí</option><option value="RJ">Rio de Janeiro</option><option value="RN">Rio Grande do Norte</option><option value="RS">Rio Grande do Sul</option><option value="RO">Rondônia</option><option value="RR">Roraima</option><option value="SC">Santa Catarina</option><option value="SP">São Paulo</option><option value="SE">Sergipe</option><option value="TO">Tocantins</option>
                 </select>
             </div>
         </div>
@@ -344,18 +114,15 @@
                 <span class="help-text">Selecione o estado para abrir seus municípios.</span>
                 <select id="estados" name="estados" multiple onchange="carregarMunicipios()"></select>
             </div>
-
             <div class="col form-group">
                 <label for="municipios">Municípios Atendidos pelo Projeto</label>
-                <span class="help-text">Selecione na lista e clique em Incluir. Segure CTRL (Mac: Cmd) para múltiplos.</span>
+                <span class="help-text">Selecione na lista e clique em Incluir. Segure CTRL para múltiplos.</span>
                 <div style="display: flex; gap: 10px; align-items: flex-start;">
                     <select id="municipios" multiple style="flex: 1;"></select>
                     <button type="button" class="btn-incluir" onclick="incluirMunicipios()">Incluir</button>
                 </div>
-                
                 <div id="municipiosSelecionadosContainer" class="tags-container"></div>
                 <button type="button" id="btnLimparMunicipios" class="btn-limpar" onclick="limparTodosMunicipios()" style="display: none;">🗑️ Apagar Todos</button>
-                
                 <input type="hidden" id="municipiosFinais" name="municipiosFinais">
             </div>
         </div>
@@ -376,18 +143,18 @@
             <label>Temáticas Principais</label>
             <div class="checkbox-group">
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="Agroecologia"> Agroecologia</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="ATER"> Assistência Técnica e Extensão Rural (ATER)</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="ATER"> ATER</label>
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="Bioinsumos"> Bioinsumos</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Comercializacao"> Comercialização / mercados institucionais</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Formacao"> Formação / capacitação de agentes de ATER</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Comercializacao"> Comercialização / mercados</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Formacao"> Formação de agentes</label>
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="Inovacao"> Inovação tecnológica</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="MeioAmbiente"> Meio ambiente e desenvolvimento sustentável</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Cooperativismo"> Organização produtiva / cooperativismo</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="MeioAmbiente"> Meio ambiente</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="Cooperativismo"> Cooperativismo</label>
                 <label class="checkbox-item"><input type="checkbox" name="tematica" value="Producao"> Produção agropecuária</label>
-                <label class="checkbox-item"><input type="checkbox" name="tematica" value="SegurancaAlimentar"> Segurança alimentar e nutricional</label>
+                <label class="checkbox-item"><input type="checkbox" name="tematica" value="SegurancaAlimentar"> Segurança alimentar</label>
                 <div class="checkbox-item" style="flex-wrap: wrap;">
-                    <label style="display: flex; align-items: center; margin-right: 0; font-weight: normal; color: inherit;"><input type="checkbox" name="tematica" value="Outro" onchange="toggleOutroTematica(this)"> Outro:</label>
-                    <input type="text" id="tematicaOutro" name="tematicaOutro" class="dynamic-input" placeholder="Especifique a temática">
+                    <label style="display: flex; align-items: center; margin-right: 0; font-weight: normal; color: inherit;"><input type="checkbox" name="tematica" value="Outro" onchange="toggleOutro(this, 'tematicaOutro')"> Outro:</label>
+                    <input type="text" id="tematicaOutro" name="tematicaOutro" class="dynamic-input" placeholder="Especifique">
                 </div>
             </div>
         </div>
@@ -400,8 +167,12 @@
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Diagnóstico"> Diagnóstico</label>
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Evento"> Evento</label>
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Pesquisa"> Pesquisa aplicada</label>
-                <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Plataformas"> Desenvolvimento de Plataformas/sistemas</label>
+                <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Plataformas"> Sistemas virtuais</label>
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Material"> Produção de material técnico</label>
+                <div class="checkbox-item" style="flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; margin-right: 0; font-weight: normal; color: inherit;"><input type="checkbox" name="tiposAcao" value="Outro" onchange="toggleOutro(this, 'tiposAcaoOutro')"> Outro:</label>
+                    <input type="text" id="tiposAcaoOutro" name="tiposAcaoOutro" class="dynamic-input" placeholder="Especifique a ação">
+                </div>
             </div>
         </div>
 
@@ -422,17 +193,14 @@
 
         <div id="blocoResultadosParciais" style="display: none; background-color: #fcfdfe; padding: 25px; border-radius: 8px; border: 2px dashed #3498db; margin-bottom: 22px;">
             <h3 style="color: #3498db; margin-top: 0; font-size: 16px; text-transform: uppercase;">Resultados Alcançados Até o Momento</h3>
-
             <div class="form-group">
                 <label for="totalBeneficiariosAtendidos">Total Geral de Beneficiários Atendidos</label>
                 <input type="number" id="totalBeneficiariosAtendidos" name="totalBeneficiariosAtendidos" placeholder="Quantidade absoluta atendida até agora" min="0">
             </div>
-
             <div class="form-group">
                 <label>Públicos Atendidos (Selecione e informe a quantidade parcial)</label>
                 <div class="checkbox-group" id="beneficiariosGroup"></div>
             </div>
-
             <div class="form-group">
                 <label>Resultados Alcançados (Selecione e informe a quantidade parcial)</label>
                 <div class="checkbox-group" id="resultadosGroup"></div>
@@ -443,18 +211,28 @@
 
         <div class="row">
             <div class="col form-group">
+                <label for="valorTotalTED">Valor Total do TED (R$)</label>
+                <span class="help-text">Soma exata do valor de todas as metas.</span>
+                <input type="text" id="valorTotalTED" name="valorTotalTED" placeholder="Ex: 50.000,00" oninput="formatarMoeda(this); calcularExecucaoTotal()" required>
+            </div>
+            <div class="col form-group">
                 <label for="totalMetas">Total de Metas Previstas no Plano</label>
+                <span class="help-text">Ao digitar, os campos de valor e % aparecerão abaixo.</span>
                 <input type="number" id="totalMetas" name="totalMetas" placeholder="Qtd máxima de 12" min="0" max="12">
             </div>
-            
-            <div class="col form-group">
-                <label for="execucaoFisicaDisplay">Percentual de Execução Física Total (%)</label>
-                <input type="text" id="execucaoFisicaDisplay" readonly placeholder="Calculado automaticamente" style="background-color: #eafaf1; border-color: #27ae60; color: #1e5631; font-weight: bold; cursor: not-allowed;">
+            <div class="col form-group" title="Cálculo realizado com base na execução financeira (Média Ponderada). A porcentagem de cada meta é multiplicada pelo seu peso no orçamento (Valor da Meta ÷ Valor Total do TED).">
+                <label for="execucaoFisicaDisplay" style="cursor: help;">Execução Física Total (%) ℹ️</label>
+                <span class="help-text">Cálculo Ponderado Oficial (Automático)</span>
+                <input type="text" id="execucaoFisicaDisplay" readonly placeholder="Aguardando valores..." style="background-color: #eafaf1; border-color: #27ae60; color: #1e5631; font-weight: bold; cursor: help;">
             </div>
         </div>
 
-        <div id="metasContainer" class="row" style="flex-wrap: wrap; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee; display: none;">
-            </div>
+        <div id="alertaValores" style="background-color: #fdf2f2; border: 1px solid #e74c3c; color: #c0392b; padding: 15px; border-radius: 8px; font-size: 14px; font-weight: 600; text-align: center; display: none; margin-bottom: 15px;">
+            ⚠️ ATENÇÃO: A soma das metas (R$ <span id="somaMetasDisplay">0,00</span>) não confere com o Total do TED.
+        </div>
+        
+        <div id="metasContainer" class="row" style="background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee; display: none;"></div>
+
         <hr class="section-separator">
 
         <div class="row">
@@ -487,11 +265,15 @@
                 <label class="checkbox-item"><input type="checkbox" name="dificuldades" value="Financeiras"> Dificuldades financeiras</label>
                 <label class="checkbox-item"><input type="checkbox" name="dificuldades" value="Logisticas"> Dificuldades logísticas/territoriais</label>
                 <label class="checkbox-item"><input type="checkbox" name="dificuldades" value="Nenhuma"> Não há dificuldades relevantes</label>
+                <div class="checkbox-item" style="flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; margin-right: 0; font-weight: normal; color: inherit;"><input type="checkbox" name="dificuldades" value="Outro" onchange="toggleOutro(this, 'dificuldadesOutro')"> Outro:</label>
+                    <input type="text" id="dificuldadesOutro" name="dificuldadesOutro" class="dynamic-input" placeholder="Especifique a dificuldade">
+                </div>
             </div>
         </div>
 
        <div style="text-align: center; color: #e67e22; font-size: 14px; font-weight: 600; margin-top: 25px; margin-bottom: -10px;">
-            ⏳ Após clicar em salvar, por favor, aguarde a mensagem de confirmação antes de fechar a página.
+            ⏳ Após clicar em salvar, por favor, aguarde a mensagem de confirmação.
         </div>
         <button type="button" onclick="salvarFormulario()">Salvar Dados do Monitoramento</button>
     </form>
@@ -501,7 +283,6 @@
     let listaMunicipiosAdicionados = [];
 
     document.addEventListener("DOMContentLoaded", async () => {
-                
         const URL_CONTADOR = "https://script.google.com/macros/s/AKfycbxKpXQB3KaVw5MQSllK72CqjUe86k3YIP4BoFoImLffUjS4v59ZFeaKyHBR-PtOMJ6flw/exec";
         fetch(URL_CONTADOR, { method: 'GET', mode: 'no-cors' }).catch(e => console.log(e));
        
@@ -509,254 +290,191 @@
             const response = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
             const estados = await response.json();
             const selectEstados = document.getElementById('estados');
-            
             estados.forEach(estado => {
                 let option = document.createElement('option');
                 option.value = estado.id; 
                 option.text = estado.sigla + ' - ' + estado.nome;
                 selectEstados.appendChild(option);
             });
-        } catch (error) {
-            console.error("Erro ao carregar estados:", error);
-        }
+        } catch (error) { console.error("Erro ao carregar estados:", error); }
 
         gerarCamposDinamicos();
         configurarMetasDinamicas();
     });
 
+    function formatarMoeda(campo) {
+        let valor = campo.value.replace(/\D/g, ''); 
+        if (valor === '') { campo.value = ''; return; }
+        valor = (parseInt(valor, 10) / 100).toFixed(2) + '';
+        valor = valor.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+        campo.value = valor;
+    }
+
+    function converterMoedaParaFloat(valorFormatado) {
+        if (!valorFormatado) return 0;
+        let limpo = valorFormatado.replace(/\./g, '').replace(',', '.');
+        return parseFloat(limpo) || 0;
+    }
+
+    function toggleOutro(checkbox, inputId) {
+        const input = document.getElementById(inputId);
+        if(checkbox.checked) {
+            input.style.display = 'inline-block'; input.required = true; input.focus();
+        } else {
+            input.style.display = 'none'; input.required = false; input.value = '';
+        }
+    }
+
     function toggleResultadosParciais() {
         const bloco = document.getElementById('blocoResultadosParciais');
         const radioSelecionado = document.querySelector('input[name="temResultadosParciais"]:checked');
-        
         if (radioSelecionado && radioSelecionado.value === "Sim") {
             bloco.style.display = 'block'; 
         } else {
             bloco.style.display = 'none'; 
             document.getElementById('totalBeneficiariosAtendidos').value = '';
-            const checkboxesInternos = bloco.querySelectorAll('input[type="checkbox"]');
-            checkboxesInternos.forEach(cb => {
-                cb.checked = false;
-                cb.dispatchEvent(new Event('change')); 
-            });
+            bloco.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; cb.dispatchEvent(new Event('change')); });
         }
     }
 
-    // --- NOVA FUNÇÃO: O Cérebro do Cálculo Matemático ---
     function calcularExecucaoTotal() {
         const inputTotalMetas = document.getElementById('totalMetas');
+        const inputValorTotalTED = document.getElementById('valorTotalTED');
         const displayExecucao = document.getElementById('execucaoFisicaDisplay');
+        const alertaValores = document.getElementById('alertaValores');
+        const somaMetasDisplay = document.getElementById('somaMetasDisplay');
         
         let numMetas = parseInt(inputTotalMetas.value) || 0;
+        let valorTotalTED = converterMoedaParaFloat(inputValorTotalTED.value);
         
-        if (numMetas === 0) {
-            displayExecucao.value = '';
+        if (numMetas === 0 || valorTotalTED === 0) {
+            displayExecucao.value = ''; alertaValores.style.display = 'none';
             return;
         }
         
-        let soma = 0;
+        let somaValoresMetas = 0;
+        let somaExecucaoPonderada = 0;
+        let todasMetasPreenchidas = true; 
+
         for(let i = 1; i <= numMetas; i++) {
-            let valorMeta = document.querySelector(`input[name="meta${i}"]`);
-            // Soma o valor se existir, senão soma 0
-            if (valorMeta && valorMeta.value !== '') {
-                soma += parseFloat(valorMeta.value);
-            }
+            let valorMetaInput = document.querySelector(`input[name="valorMeta${i}"]`);
+            let execucaoMetaInput = document.querySelector(`input[name="meta${i}"]`);
+            let v = valorMetaInput && valorMetaInput.value !== '' ? converterMoedaParaFloat(valorMetaInput.value) : 0;
+            if (v === 0) todasMetasPreenchidas = false;
+            let e = execucaoMetaInput && execucaoMetaInput.value !== '' ? parseFloat(execucaoMetaInput.value) : 0;
+            somaValoresMetas += v;
+            somaExecucaoPonderada += (e * (valorTotalTED > 0 ? (v / valorTotalTED) : 0));
         }
         
-        // Calcula a média
-        let media = soma / numMetas;
-        
-        // Formata bonitinho: se for inteiro mostra "50", se for quebrado mostra "50.33"
-        displayExecucao.value = Number.isInteger(media) ? media : media.toFixed(2);
+        let sA = parseFloat(somaValoresMetas.toFixed(2));
+        let tA = parseFloat(valorTotalTED.toFixed(2));
+        let temErro = (sA > tA) || (todasMetasPreenchidas && sA !== tA);
+
+        if (temErro) {
+            alertaValores.style.display = 'block';
+            somaMetasDisplay.innerText = sA.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+            displayExecucao.value = 'Valores Incorretos';
+        } else {
+            alertaValores.style.display = 'none';
+            displayExecucao.value = todasMetasPreenchidas && sA === tA ? (Number.isInteger(somaExecucaoPonderada) ? somaExecucaoPonderada : somaExecucaoPonderada.toFixed(2)) : 'Calculando...';
+        }
     }
 
     function configurarMetasDinamicas() {
         const inputTotalMetas = document.getElementById('totalMetas');
         const metasContainer = document.getElementById('metasContainer');
-
         inputTotalMetas.addEventListener('input', function() {
-            let numMetas = parseInt(this.value) || 0;
-            
-            if (numMetas > 12) {
-                numMetas = 12;
-                this.value = 12;
-            }
-
+            let n = parseInt(this.value) || 0;
+            if (n > 12) { n = 12; this.value = 12; }
             metasContainer.innerHTML = ''; 
-
-            if (numMetas > 0) {
+            if (n > 0) {
                 metasContainer.style.display = 'flex';
-                for(let i = 1; i <= numMetas; i++) {
-                    // Adicionamos o gatilho oninput="calcularExecucaoTotal()" em cada meta
+                for(let i = 1; i <= n; i++) {
                     metasContainer.innerHTML += `
-                    <div class="form-group" style="flex: 0 0 calc(25% - 20px); min-width: 150px; margin: 10px;">
-                        <label style="font-size: 13px; color: #555; font-weight: normal;">Execução Meta ${i} (%)</label>
-                        <input type="number" name="meta${i}" min="0" max="100" placeholder="%" style="padding: 8px;" oninput="calcularExecucaoTotal()">
+                    <div class="form-group" style="flex: 1 1 calc(33% - 20px); min-width: 250px; margin: 10px; padding: 15px; border: 1px dashed #b5c6b9; border-radius: 8px; background-color: #fdfefe;">
+                        <label style="font-size: 13px; color: #1e5631; font-weight: 700;">META ${i}</label>
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex: 1;">
+                                <label style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1e5631;">Valor (R$)</label>
+                                <span class="help-text">Insira o valor desta meta.</span>
+                                <input type="text" name="valorMeta${i}" placeholder="0,00" oninput="formatarMoeda(this); calcularExecucaoTotal()">
+                            </div>
+                            <div style="flex: 1;">
+                                <label style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1e5631;">Execução (%)</label>
+                                <span class="help-text">Progresso físico atual.</span>
+                                <input type="number" name="meta${i}" min="0" max="100" placeholder="0 a 100" oninput="calcularExecucaoTotal()">
+                            </div>
+                        </div>
                     </div>`;
                 }
-            } else {
-                metasContainer.style.display = 'none';
-            }
-            
-            // Quando altera o total de metas, manda recalcular também
+            } else { metasContainer.style.display = 'none'; }
             calcularExecucaoTotal();
         });
     }
 
     async function carregarMunicipios() {
-        const selectEstados = document.getElementById('estados');
-        const selectMunicipios = document.getElementById('municipios');
-        const estadosSelecionados = Array.from(selectEstados.selectedOptions).map(opt => opt.value);
-        
-        selectMunicipios.innerHTML = ''; 
-        
-        if(estadosSelecionados.length > 0) {
+        const sE = document.getElementById('estados'); const sM = document.getElementById('municipios');
+        const selec = Array.from(sE.selectedOptions).map(opt => opt.value);
+        sM.innerHTML = ''; 
+        if(selec.length > 0) {
             try {
-                const ids = estadosSelecionados.join('|');
-                const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ids}/municipios`);
-                let municipios = await response.json();
-                
-                municipios.sort((a, b) => a.nome.localeCompare(b.nome));
-
-                municipios.forEach(mun => {
-                    const siglaUF = mun.microrregiao.mesorregiao.UF.sigla;
-                    const nomeComSigla = `${siglaUF} - ${mun.nome}`;
-
-                    let option = document.createElement('option');
-                    option.value = nomeComSigla;
-                    option.text = nomeComSigla;
-                    selectMunicipios.appendChild(option);
+                const ids = selec.join('|');
+                const resp = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ids}/municipios`);
+                let mun = await resp.json();
+                mun.sort((a, b) => a.nome.localeCompare(b.nome)).forEach(m => {
+                    let opt = document.createElement('option');
+                    opt.value = opt.text = `${m.microrregiao.mesorregiao.UF.sigla} - ${m.nome}`;
+                    sM.appendChild(opt);
                 });
-            } catch (error) {
-                console.error("Erro ao carregar municípios:", error);
-            }
+            } catch (error) {}
         }
     }
 
     function incluirMunicipios() {
-        const selectMunicipios = document.getElementById('municipios');
-        const opcoesSelecionadas = Array.from(selectMunicipios.selectedOptions);
-        
-        opcoesSelecionadas.forEach(opt => {
-            const nomeMunicipio = opt.value; 
-            if (!listaMunicipiosAdicionados.includes(nomeMunicipio)) {
-                listaMunicipiosAdicionados.push(nomeMunicipio);
-            }
-        });
-        
-        selectMunicipios.selectedIndex = -1; 
-        atualizarInterfaceMunicipios();
+        const sM = document.getElementById('municipios');
+        Array.from(sM.selectedOptions).forEach(opt => { if (!listaMunicipiosAdicionados.includes(opt.value)) listaMunicipiosAdicionados.push(opt.value); });
+        sM.selectedIndex = -1; atualizarInterfaceMunicipios();
     }
 
-    function removerMunicipio(nomeMunicipio) {
-        listaMunicipiosAdicionados = listaMunicipiosAdicionados.filter(mun => mun !== nomeMunicipio);
-        atualizarInterfaceMunicipios();
-    }
-
-    function limparTodosMunicipios() {
-        if(confirm("Tem certeza que deseja apagar todos os municípios selecionados?")) {
-            listaMunicipiosAdicionados = [];
-            atualizarInterfaceMunicipios();
-        }
-    }
+    function removerMunicipio(n) { listaMunicipiosAdicionados = listaMunicipiosAdicionados.filter(m => m !== n); atualizarInterfaceMunicipios(); }
+    function limparTodosMunicipios() { if(confirm("Apagar todos?")) { listaMunicipiosAdicionados = []; atualizarInterfaceMunicipios(); } }
 
     function atualizarInterfaceMunicipios() {
-        const container = document.getElementById('municipiosSelecionadosContainer');
-        const inputEscondido = document.getElementById('municipiosFinais');
-        const btnLimpar = document.getElementById('btnLimparMunicipios'); 
-        
-        container.innerHTML = '';
-        
-        listaMunicipiosAdicionados.forEach(mun => {
-            const divTag = document.createElement('div');
-            divTag.className = 'tag';
-            divTag.innerHTML = `${mun} <span class="tag-close" onclick="removerMunicipio('${mun}')">&times;</span>`;
-            container.appendChild(divTag);
+        const cont = document.getElementById('municipiosSelecionadosContainer');
+        const inp = document.getElementById('municipiosFinais');
+        const btn = document.getElementById('btnLimparMunicipios');
+        cont.innerHTML = '';
+        listaMunicipiosAdicionados.forEach(m => {
+            cont.innerHTML += `<div class="tag">${m} <span class="tag-close" onclick="removerMunicipio('${m}')">&times;</span></div>`;
         });
-        
-        inputEscondido.value = listaMunicipiosAdicionados.join(', ');
-
-        if (listaMunicipiosAdicionados.length > 0) {
-            btnLimpar.style.display = 'inline-block';
-        } else {
-            btnLimpar.style.display = 'none';
-        }
-    }
-
-    function toggleOutroTematica(checkbox) {
-        const inputOutro = document.getElementById('tematicaOutro');
-        
-        if(checkbox.checked) {
-            inputOutro.style.display = 'inline-block';
-            inputOutro.required = true;
-            inputOutro.focus();
-        } else {
-            inputOutro.style.display = 'none';
-            inputOutro.required = false;
-            inputOutro.value = '';
-        }
+        inp.value = listaMunicipiosAdicionados.join(', ');
+        btn.style.display = listaMunicipiosAdicionados.length > 0 ? 'inline-block' : 'none';
     }
 
     function gerarCamposDinamicos() {
-        const beneficiarios = [
-            "Mulheres", "Jovens", "Assentados da reforma agrária", 
-            "Comunidade tradicional", "Comunidade indígena", 
-            "Técnicos e extensionistas", "Cooperativas / associações"
-        ];
-        
-        const resultados = [
-            "Agentes de Ater capacitados", "Cursos realizados", 
-            "Diagnósticos territoriais realizados", "Eventos realizados (seminários, encontros, visitas)", 
-            "Plataformas/sistemas virtuais", "Publicações (livros, cartilhas e material)", 
-            "Quintais produtivos implantados", "Unidades de referência implantadas"
-        ];
+        const beneficiarios = ["Mulheres", "Jovens", "Assentados", "Tradicional", "Indígena", "Técnicos", "Cooperativas", "Outro"];
+        const resultados = ["Agentes capacitados", "Cursos realizados", "Diagnósticos", "Eventos", "Sistemas", "Publicações", "Quintais", "Unidades", "Outro"];
 
         function criarLista(lista, containerId, prefixo) {
             const container = document.getElementById(containerId);
             lista.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'checkbox-item';
+                const div = document.createElement('div'); div.className = 'checkbox-item'; div.style.flexWrap = 'wrap';
+                const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.id = `${prefixo}_${index}`; checkbox.value = item; checkbox.name = containerId; 
+                const label = document.createElement('label'); label.htmlFor = `${prefixo}_${index}`; label.innerText = item;
                 
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = `${prefixo}_${index}`;
-                checkbox.value = item;
-                checkbox.name = containerId; 
+                const nomeOutro = item === "Outro" ? `<input type="text" id="nome_${prefixo}_${index}" class="dynamic-input" style="width:100px !important; margin:0 10px;" placeholder="Qual?">` : '';
+                const numberInput = `<input type="number" class="dynamic-input" placeholder="Qtd" id="qtd_${prefixo}_${index}" min="0">`;
 
-                const label = document.createElement('label');
-                label.htmlFor = `${prefixo}_${index}`;
-                label.innerText = item;
-                label.style.display = 'inline';
-                label.style.fontWeight = 'normal'; 
-                label.style.cursor = 'pointer';
-                label.style.color = 'inherit'; 
-                label.style.marginRight = '0';
-
-                const numberInput = document.createElement('input');
-                numberInput.type = 'number';
-                numberInput.className = 'dynamic-input';
-                numberInput.placeholder = 'Qtd';
-                numberInput.id = `qtd_${prefixo}_${index}`;
-                numberInput.min = "0";
-
-                checkbox.addEventListener('change', function() {
-                    if(this.checked) {
-                        numberInput.style.display = 'inline-block';
-                        numberInput.required = true;
-                        numberInput.focus();
-                    } else {
-                        numberInput.style.display = 'none';
-                        numberInput.required = false;
-                        numberInput.value = '';
-                    }
+                div.innerHTML = checkbox.outerHTML + label.outerHTML + nomeOutro + numberInput;
+                
+                const cb = div.querySelector('input[type="checkbox"]');
+                cb.addEventListener('change', function() {
+                    const inputs = div.querySelectorAll('.dynamic-input');
+                    inputs.forEach(i => { i.style.display = this.checked ? 'inline-block' : 'none'; i.required = this.checked; if(!this.checked) i.value = ''; });
                 });
-
-                div.appendChild(checkbox);
-                div.appendChild(label);
-                div.appendChild(numberInput);
                 container.appendChild(div);
             });
         }
-
         criarLista(beneficiarios, 'beneficiariosGroup', 'ben');
         criarLista(resultados, 'resultadosGroup', 'res');
     }
@@ -764,44 +482,35 @@
     async function salvarFormulario() {
         const btnSalvar = document.querySelector('button[onclick="salvarFormulario()"]');
         const form = document.getElementById('projetoForm');
-        
-        if(!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
+        if(!form.checkValidity()) { form.reportValidity(); return; }
 
-        const munSelecionados = document.getElementById('municipiosFinais').value;
-        if(munSelecionados.trim() === "") {
-            alert("Atenção: Nenhum MUNICÍPIO foi incluído nas tags. Selecione na lista e clique em 'Incluir'.");
-            document.getElementById('municipios').focus();
-            return; 
-        }
+        if(document.getElementById('municipiosFinais').value.trim() === "") { alert("Inclua ao menos um município."); return; }
 
-        btnSalvar.innerText = "Enviando dados... Aguarde";
-        btnSalvar.disabled = true;
+        let vTotal = converterMoedaParaFloat(document.getElementById('valorTotalTED').value);
+        let nMetas = parseInt(document.getElementById('totalMetas').value) || 0;
+        let sMetas = 0;
+        for(let i=1; i<=nMetas; i++){ let v = document.querySelector(`input[name="valorMeta${i}"]`); if(v) sMetas += converterMoedaParaFloat(v.value); }
+        if(nMetas > 0 && Math.abs(sMetas - vTotal) > 0.01) { alert("Soma das metas não confere com o Total."); return; }
 
-        const getCheckedValues = (name) => {
-            return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(cb => cb.value).join(", ");
+        btnSalvar.innerText = "Enviando..."; btnSalvar.disabled = true;
+
+        const getCheck = (name, outroId) => {
+            let vals = Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(cb => cb.value);
+            if(vals.includes("Outro") && document.getElementById(outroId)) vals[vals.indexOf("Outro")] = "Outro: " + document.getElementById(outroId).value;
+            return vals.join(", ");
         };
 
-        const getDynamicValues = (containerId, prefix) => {
-            let result = [];
-            const container = document.getElementById(containerId);
-            container.querySelectorAll(`input[type="checkbox"]:checked`).forEach(cb => {
-                const index = cb.id.split('_')[1];
-                const qtd = document.getElementById(`qtd_${prefix}_${index}`).value || "0";
-                result.push(`${cb.value}: ${qtd}`);
+        const getDynValues = (containerId, prefix) => {
+            let res = [];
+            document.getElementById(containerId).querySelectorAll(`input[type="checkbox"]:checked`).forEach(cb => {
+                const idx = cb.id.split('_')[1];
+                const qtd = document.getElementById(`qtd_${prefix}_${idx}`).value || "0";
+                const nomeExtra = document.getElementById(`nome_${prefix}_${idx}`);
+                const label = nomeExtra && nomeExtra.value ? "Outro ("+nomeExtra.value+")" : cb.value;
+                res.push(`${label}: ${qtd}`);
             });
-            return result.join(" | "); 
+            return res.join(" | ");
         };
-
-        const getMetaValue = (index) => {
-            const inputMeta = document.querySelector(`input[name="meta${index}"]`);
-            return inputMeta ? inputMeta.value : "";
-        };
-
-        const radioResultados = document.querySelector('input[name="temResultadosParciais"]:checked');
-        const temResultadosParciaisValor = radioResultados ? radioResultados.value : "";
 
         const dados = {
             numeroTED: document.getElementById('numeroTED').value,
@@ -812,79 +521,36 @@
             email: document.getElementById('email').value,
             telefone: document.getElementById('telefone').value,
             estados: Array.from(document.getElementById('estados').selectedOptions).map(opt => opt.text).join(", "),
-            municipios: munSelecionados,
-            abrangencia: getCheckedValues('abrangencia'),
-            tematica: Array.from(document.querySelectorAll('input[name="tematica"]:checked')).map(cb => {
-                if (cb.value === "Outro") {
-                    const outroTxt = document.getElementById('tematicaOutro').value;
-                    return outroTxt ? `Outro: ${outroTxt}` : "Outro";
-                }
-                return cb.value;
-            }).join(", "),
-            tiposAcao: getCheckedValues('tiposAcao'),
-            
+            municipios: document.getElementById('municipiosFinais').value,
+            abrangencia: getCheck('abrangencia', ''),
+            tematica: getCheck('tematica', 'tematicaOutro'),
+            tiposAcao: getCheck('tiposAcao', 'tiposAcaoOutro'),
             totalBeneficiariosPrevistos: document.getElementById('totalBeneficiariosPrevistos').value,
-            temResultadosParciais: temResultadosParciaisValor,
+            temResultadosParciais: document.querySelector('input[name="temResultadosParciais"]:checked')?.value || "",
             totalBeneficiariosAtendidos: document.getElementById('totalBeneficiariosAtendidos').value,
-
-            beneficiariosDetalhados: getDynamicValues('beneficiariosGroup', 'ben'),
-            resultadosDetalhados: getDynamicValues('resultadosGroup', 'res'),
-            
-            // Agora pegamos o valor da caixa que foi calculada automaticamente
+            beneficiariosDetalhados: getDynValues('beneficiariosGroup', 'ben'),
+            resultadosDetalhados: getDynValues('resultadosGroup', 'res'),
+            valorTotalTED: vTotal,
             execucaoFisica: document.getElementById('execucaoFisicaDisplay').value,
-            
-            totalMetas: document.getElementById('totalMetas').value,
-            meta1: getMetaValue(1),
-            meta2: getMetaValue(2),
-            meta3: getMetaValue(3),
-            meta4: getMetaValue(4),
-            meta5: getMetaValue(5),
-            meta6: getMetaValue(6),
-            meta7: getMetaValue(7),
-            meta8: getMetaValue(8),
-            meta9: getMetaValue(9),
-            meta10: getMetaValue(10),
-            meta11: getMetaValue(11),
-            meta12: getMetaValue(12),
+            totalMetas: nMetas,
             situacaoGeral: document.getElementById('situacaoGeral').value,
             cronograma: document.getElementById('cronograma').value,
-            dificuldades: getCheckedValues('dificuldades')
+            dificuldades: getCheck('dificuldades', 'dificuldadesOutro')
         };
 
-        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxKpXQB3KaVw5MQSllK72CqjUe86k3YIP4BoFoImLffUjS4v59ZFeaKyHBR-PtOMJ6flw/exec";
-
-        try {
-            await fetch(URL_APPS_SCRIPT, {
-                method: 'POST',
-                mode: 'no-cors', 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dados)
-            });
-
-            alert("Dados salvos com sucesso na planilha de monitoramento!");
-            
-            form.reset();
-            listaMunicipiosAdicionados = []; 
-            atualizarInterfaceMunicipios();
-            document.getElementById('tematicaOutro').style.display = 'none';
-            document.querySelectorAll('.dynamic-input').forEach(el => el.style.display = 'none');
-            document.getElementById('metasContainer').style.display = 'none'; 
-            document.getElementById('metasContainer').innerHTML = '';
-            document.getElementById('blocoResultadosParciais').style.display = 'none';
-            // Limpa o valor calculado visualmente também
-            document.getElementById('execucaoFisicaDisplay').value = '';
-            
-        } catch (error) {
-            alert("Ocorreu um erro crítico ao enviar os dados. Verifique sua conexão e tente novamente em instantes.");
-            console.error(error);
-        } finally {
-            btnSalvar.innerText = "Salvar Dados do Monitoramento";
-            btnSalvar.disabled = false;
+        for(let i=1; i<=12; i++) {
+            let m = document.querySelector(`input[name="meta${i}"]`);
+            dados['meta'+i] = m ? m.value : "";
         }
+
+        const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxKpXQB3KaVw5MQSllK72CqjUe86k3YIP4BoFoImLffUjS4v59ZFeaKyHBR-PtOMJ6flw/exec";
+        try {
+            await fetch(URL_SCRIPT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) });
+            alert("Dados salvos!"); form.reset(); listaMunicipiosAdicionados = []; atualizarInterfaceMunicipios();
+            document.querySelectorAll('.dynamic-input').forEach(e => e.style.display = 'none');
+            document.getElementById('metasContainer').style.display = 'none';
+        } catch (e) { alert("Erro ao enviar."); } finally { btnSalvar.innerText = "Salvar Dados"; btnSalvar.disabled = false; }
     }
 </script>
-
 </body>
 </html>
