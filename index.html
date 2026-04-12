@@ -402,9 +402,6 @@
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Pesquisa"> Pesquisa aplicada</label>
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Plataformas"> Desenvolvimento de Plataformas/sistemas</label>
                 <label class="checkbox-item"><input type="checkbox" name="tiposAcao" value="Material"> Produção de material técnico</label>
-                <div class="checkbox-item" style="flex-wrap: wrap;">
-                    <label style="display: flex; align-items: center; margin-right: 0; font-weight: normal; color: inherit;"><input type="checkbox" name="tiposAcao" value="Outro" onchange="toggleOutroTematica(this)"> Outro:</label>
-                    <input type="text" id="tiposAcaoOutro" name="tiposAcaoOutro" class="dynamic-input" placeholder="Especifique a ação">
             </div>
         </div>
 
@@ -415,7 +412,7 @@
             <input type="number" id="totalBeneficiariosPrevistos" name="totalBeneficiariosPrevistos" placeholder="Quantidade prevista no projeto" min="0">
         </div>
 
-       <div class="form-group">
+        <div class="form-group">
             <label>O projeto está em execução e apresenta resultados parciais?</label>
             <div class="radio-group" style="display: flex; gap: 20px; align-items: center;">
                 <label class="checkbox-item" style="margin-bottom: 0;"><input type="radio" name="temResultadosParciais" value="Sim" onchange="toggleResultadosParciais()"> Sim</label>
@@ -424,7 +421,6 @@
         </div>
 
         <div id="blocoResultadosParciais" style="display: none; background-color: #fcfdfe; padding: 25px; border-radius: 8px; border: 2px dashed #3498db; margin-bottom: 22px;">
-            
             <h3 style="color: #3498db; margin-top: 0; font-size: 16px; text-transform: uppercase;">Resultados Alcançados Até o Momento</h3>
 
             <div class="form-group">
@@ -442,22 +438,23 @@
                 <div class="checkbox-group" id="resultadosGroup"></div>
             </div>
         </div>
+
         <hr class="section-separator">
 
         <div class="row">
             <div class="col form-group">
-                <label for="execucaoFisica">Percentual de Execução Física Total (%)</label>
-                <input type="number" id="execucaoFisica" name="execucaoFisica" min="0" max="100" placeholder="0 a 100">
-            </div>
-            <div class="col form-group">
                 <label for="totalMetas">Total de Metas Previstas no Plano</label>
                 <input type="number" id="totalMetas" name="totalMetas" placeholder="Qtd máxima de 12" min="0" max="12">
+            </div>
+            
+            <div class="col form-group">
+                <label for="execucaoFisicaDisplay">Percentual de Execução Física Total (%)</label>
+                <input type="text" id="execucaoFisicaDisplay" readonly placeholder="Calculado magicamente 🪄" style="background-color: #eafaf1; border-color: #27ae60; color: #1e5631; font-weight: bold; cursor: not-allowed;">
             </div>
         </div>
 
         <div id="metasContainer" class="row" style="flex-wrap: wrap; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee; display: none;">
             </div>
-
         <hr class="section-separator">
 
         <div class="row">
@@ -527,28 +524,49 @@
         configurarMetasDinamicas();
     });
 
-    // --- NOVA FUNÇÃO: Esconder ou Mostrar o bloco de resultados ---
     function toggleResultadosParciais() {
         const bloco = document.getElementById('blocoResultadosParciais');
-        // Pega qual opção o usuário clicou (Sim ou Não)
         const radioSelecionado = document.querySelector('input[name="temResultadosParciais"]:checked');
         
         if (radioSelecionado && radioSelecionado.value === "Sim") {
-            bloco.style.display = 'block'; // Mostra
+            bloco.style.display = 'block'; 
         } else {
-            bloco.style.display = 'none'; // Esconde
-            
-            // Limpeza de segurança: Se ele esconder a caixa, apagamos o que estava lá dentro 
-            // para não ir lixo para a planilha
+            bloco.style.display = 'none'; 
             document.getElementById('totalBeneficiariosAtendidos').value = '';
-            
             const checkboxesInternos = bloco.querySelectorAll('input[type="checkbox"]');
             checkboxesInternos.forEach(cb => {
                 cb.checked = false;
-                // Dispara o evento para o campo de quantidade sumir também
                 cb.dispatchEvent(new Event('change')); 
             });
         }
+    }
+
+    // --- NOVA FUNÇÃO: O Cérebro do Cálculo Matemático ---
+    function calcularExecucaoTotal() {
+        const inputTotalMetas = document.getElementById('totalMetas');
+        const displayExecucao = document.getElementById('execucaoFisicaDisplay');
+        
+        let numMetas = parseInt(inputTotalMetas.value) || 0;
+        
+        if (numMetas === 0) {
+            displayExecucao.value = '';
+            return;
+        }
+        
+        let soma = 0;
+        for(let i = 1; i <= numMetas; i++) {
+            let valorMeta = document.querySelector(`input[name="meta${i}"]`);
+            // Soma o valor se existir, senão soma 0
+            if (valorMeta && valorMeta.value !== '') {
+                soma += parseFloat(valorMeta.value);
+            }
+        }
+        
+        // Calcula a média
+        let media = soma / numMetas;
+        
+        // Formata bonitinho: se for inteiro mostra "50", se for quebrado mostra "50.33"
+        displayExecucao.value = Number.isInteger(media) ? media : media.toFixed(2);
     }
 
     function configurarMetasDinamicas() {
@@ -568,15 +586,19 @@
             if (numMetas > 0) {
                 metasContainer.style.display = 'flex';
                 for(let i = 1; i <= numMetas; i++) {
+                    // Adicionamos o gatilho oninput="calcularExecucaoTotal()" em cada meta
                     metasContainer.innerHTML += `
                     <div class="form-group" style="flex: 0 0 calc(25% - 20px); min-width: 150px; margin: 10px;">
                         <label style="font-size: 13px; color: #555; font-weight: normal;">Execução Meta ${i} (%)</label>
-                        <input type="number" name="meta${i}" min="0" max="100" placeholder="%" style="padding: 8px;">
+                        <input type="number" name="meta${i}" min="0" max="100" placeholder="%" style="padding: 8px;" oninput="calcularExecucaoTotal()">
                     </div>`;
                 }
             } else {
                 metasContainer.style.display = 'none';
             }
+            
+            // Quando altera o total de metas, manda recalcular também
+            calcularExecucaoTotal();
         });
     }
 
@@ -778,7 +800,6 @@
             return inputMeta ? inputMeta.value : "";
         };
 
-        // Captura o valor do botão de rádio Sim/Não
         const radioResultados = document.querySelector('input[name="temResultadosParciais"]:checked');
         const temResultadosParciaisValor = radioResultados ? radioResultados.value : "";
 
@@ -802,15 +823,16 @@
             }).join(", "),
             tiposAcao: getCheckedValues('tiposAcao'),
             
-            // --- OS 3 NOVOS CAMPOS AQUI ---
             totalBeneficiariosPrevistos: document.getElementById('totalBeneficiariosPrevistos').value,
             temResultadosParciais: temResultadosParciaisValor,
             totalBeneficiariosAtendidos: document.getElementById('totalBeneficiariosAtendidos').value,
-            // ------------------------------
 
             beneficiariosDetalhados: getDynamicValues('beneficiariosGroup', 'ben'),
             resultadosDetalhados: getDynamicValues('resultadosGroup', 'res'),
-            execucaoFisica: document.getElementById('execucaoFisica').value,
+            
+            // Agora pegamos o valor da caixa que foi calculada automaticamente
+            execucaoFisica: document.getElementById('execucaoFisicaDisplay').value,
+            
             totalMetas: document.getElementById('totalMetas').value,
             meta1: getMetaValue(1),
             meta2: getMetaValue(2),
@@ -850,7 +872,9 @@
             document.querySelectorAll('.dynamic-input').forEach(el => el.style.display = 'none');
             document.getElementById('metasContainer').style.display = 'none'; 
             document.getElementById('metasContainer').innerHTML = '';
-            document.getElementById('blocoResultadosParciais').style.display = 'none'; // Esconde a caixa nova ao reiniciar
+            document.getElementById('blocoResultadosParciais').style.display = 'none';
+            // Limpa o valor calculado visualmente também
+            document.getElementById('execucaoFisicaDisplay').value = '';
             
         } catch (error) {
             alert("Ocorreu um erro crítico ao enviar os dados. Verifique sua conexão e tente novamente em instantes.");
